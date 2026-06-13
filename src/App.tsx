@@ -1,0 +1,1 @@
+export { AppRouter as default } from './routes/AppRouter';
