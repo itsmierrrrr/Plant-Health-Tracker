@@ -19,7 +19,6 @@ export function normalizeAnalysisDocument(document) {
   };
 }
 
-export async function processPlantAnalysis({ filePath, fileName, imageUrl }) {
 export async function processPlantAnalysis({ filePath, fileName, imageUrl, userId }) {
   const identification = await identifyPlantWithPlantNet({ filePath, fileName });
   const healthScore = calculatePlantHealthScore(identification.confidence);
