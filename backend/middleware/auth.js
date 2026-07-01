@@ -2,6 +2,18 @@ import jwt from 'jsonwebtoken';
 import { AppError } from '../utils/AppError.js';
 import { User } from '../models/User.js';
 
+export function isAdminUser(user) {
+  const adminEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+
+  if (!adminEmail) {
+    return false;
+  }
+
+  const email = typeof user === 'string' ? user : user?.email;
+
+  return Boolean(email && String(email).trim().toLowerCase() === adminEmail);
+}
+
 function getTokenFromRequest(request) {
   const header = request.headers.authorization || '';
 
@@ -37,14 +49,28 @@ export async function requireAuth(request, response, next) {
       throw new AppError('User not found', 401);
     }
 
-    request.user = user;
+    request.user = {
+      ...user.toObject(),
+      isAdmin: isAdminUser(user),
+    };
     request.auth = {
       userId: user._id.toString(),
       token,
     };
 
+    response.locals.user = request.user;
+
     next();
   } catch (error) {
     next(error instanceof AppError ? error : new AppError('Authentication required', 401));
   }
+}
+
+export function requireAdmin(request, response, next) {
+  if (!request.user?.isAdmin) {
+    next(new AppError('Admin access required', 403));
+    return;
+  }
+
+  next();
 }
