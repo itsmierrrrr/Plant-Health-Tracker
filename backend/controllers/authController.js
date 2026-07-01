@@ -4,12 +4,14 @@ import { User } from '../models/User.js';
 import { AppError } from '../utils/AppError.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { sendSuccess } from '../utils/response.js';
+import { isAdminUser } from '../middleware/auth.js';
 
 function sanitizeUser(user) {
   return {
     id: user._id.toString(),
     name: user.name,
     email: user.email,
+    isAdmin: isAdminUser(user),
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
   };
