@@ -39,6 +39,40 @@ const plantAnalysisSchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
+    careInsights: {
+      waterNeed: {
+        type: String,
+        required: true,
+      },
+      sunlightNeed: {
+        type: String,
+        required: true,
+      },
+      soilTemperature: {
+        type: String,
+        required: true,
+      },
+      leafCondition: {
+        type: String,
+        required: true,
+      },
+      soilMoisture: {
+        type: String,
+        required: true,
+      },
+      humidity: {
+        type: String,
+        required: true,
+      },
+      pestRisk: {
+        type: String,
+        required: true,
+      },
+      careNotes: {
+        type: [String],
+        default: [],
+      },
+    },
   },
   {
     timestamps: {
