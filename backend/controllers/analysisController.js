@@ -16,9 +16,9 @@ function getAnalysisInput(request) {
     imageUrl: uploadedFile?.imageUrl || body.imageUrl || null,
     fileName: file?.originalname || body.fileName || '',
     filePath: file?.path || null,
-    commonName: body.commonName || '',
-    scientificName: body.scientificName || '',
-    confidence: body.confidence !== undefined ? Number(body.confidence) : undefined,
+    commonName: typeof body.commonName === 'string' && body.commonName.trim().length > 0 ? body.commonName.trim() : undefined,
+    scientificName: typeof body.scientificName === 'string' && body.scientificName.trim().length > 0 ? body.scientificName.trim() : undefined,
+    confidence: body.confidence !== undefined && body.confidence !== '' ? Number(body.confidence) : undefined,
   };
 }
 
