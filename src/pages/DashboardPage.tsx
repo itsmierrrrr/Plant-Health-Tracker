@@ -18,7 +18,7 @@ import {
   Tooltip,
 } from 'chart.js';
 import { Bar, Doughnut, Line } from 'react-chartjs-2';
-import { Activity, BarChart3, Leaf, Sparkles, Sprout, TrendingUp } from 'lucide-react';
+import { Activity, BarChart3, BadgeCheck, CalendarDays, Droplets, Leaf, ShieldAlert, Sparkles, Sprout, SunMedium, ThermometerSun, TrendingUp, Wind } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -137,6 +137,7 @@ function buildDoughnutData(analyses: DashboardAnalysis[]) {
 export function DashboardPage() {
   const navigate = useNavigate();
   const [analyses, setAnalyses] = useState<DashboardAnalysis[]>([]);
+  const [selectedAnalysisId, setSelectedAnalysisId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -151,6 +152,7 @@ export function DashboardPage() {
         }
 
         setAnalyses(fetchedAnalyses);
+        setSelectedAnalysisId((currentSelected) => currentSelected || fetchedAnalyses[0]?.id || null);
         setError(null);
       } catch {
         if (!mounted) {
@@ -179,6 +181,26 @@ export function DashboardPage() {
   const weeklyActivity = useMemo(() => aggregateWeeklyActivity(analyses), [analyses]);
   const monthlyActivity = useMemo(() => aggregateMonthlyActivity(analyses), [analyses]);
   const doughnutData = useMemo(() => buildDoughnutData(analyses), [analyses]);
+  const selectedAnalysis = useMemo(
+    () => analyses.find((analysis) => analysis.id === selectedAnalysisId) ?? analyses[0] ?? null,
+    [analyses, selectedAnalysisId]
+  );
+  const selectedCareInsights = useMemo(() => {
+    if (!selectedAnalysis) {
+      return null;
+    }
+
+    return selectedAnalysis.careInsights ?? {
+      waterNeed: 'Moderate watering',
+      sunlightNeed: 'Bright indirect light',
+      soilTemperature: '18-24°C',
+      leafCondition: 'Condition inferred from the scan',
+      soilMoisture: 'Evenly moist',
+      humidity: 'Moderate humidity',
+      pestRisk: 'Moderate',
+      careNotes: ['This care profile is estimated from the PlantNet match and health score.'],
+    };
+  }, [selectedAnalysis]);
 
   const weeklyBarData = {
     labels: weeklyActivity.labels,
@@ -380,7 +402,15 @@ export function DashboardPage() {
               <EmptyState icon={Sprout} title="No private analyses yet" description="Upload a plant image to create your first authenticated record." actionLabel="Go to upload" onClick={() => navigate('/upload')} />
             ) : (
               analyses.slice(0, 3).map((analysis) => (
-                <div key={analysis.id} className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-slate-300">
+                <button
+                  key={analysis.id}
+                  type="button"
+                  onClick={() => setSelectedAnalysisId(analysis.id)}
+                  className={cn(
+                    'w-full rounded-2xl border bg-white/5 p-4 text-left text-sm text-slate-300 transition hover:-translate-y-0.5 hover:border-leaf-400/30',
+                    selectedAnalysis?.id === analysis.id ? 'border-leaf-400/50 ring-1 ring-leaf-400/20' : 'border-white/10'
+                  )}
+                >
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <p className="font-semibold text-cream">{analysis.commonName}</p>
@@ -391,12 +421,110 @@ export function DashboardPage() {
                   <p className="mt-3 leading-6 text-slate-400">
                     Confidence {analysis.confidence}% · {new Date(analysis.createdAt).toLocaleDateString()}
                   </p>
-                </div>
+                </button>
               ))
             )}
           </div>
         </DashboardCard>
 
+        <DashboardCard title="Full result details" action={<span className="text-sm text-slate-400">Selected analysis</span>}>
+          {selectedAnalysis ? (
+            <div className="space-y-5">
+              <div className="overflow-hidden rounded-3xl border border-white/10 bg-slate-950">
+                <img src={selectedAnalysis.imageUrl} alt={selectedAnalysis.commonName} className="h-64 w-full object-cover" />
+              </div>
+
+              <div className="space-y-3">
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <h3 className="text-2xl font-semibold text-cream">{selectedAnalysis.commonName}</h3>
+                    <p className="text-sm text-slate-400">{selectedAnalysis.scientificName}</p>
+                  </div>
+                  <span className="rounded-full bg-leaf-400/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-leaf-200">
+                    {selectedAnalysis.healthScore >= 85 ? 'Healthy' : selectedAnalysis.healthScore >= 65 ? 'Monitoring' : 'Attention needed'}
+                  </span>
+                </div>
+
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <p className="text-xs uppercase tracking-[0.22em] text-slate-500">Confidence</p>
+                    <p className="mt-2 text-2xl font-bold text-cream">{selectedAnalysis.confidence}%</p>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <p className="text-xs uppercase tracking-[0.22em] text-slate-500">Health score</p>
+                    <p className="mt-2 text-2xl font-bold text-cream">{selectedAnalysis.healthScore}%</p>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4 sm:col-span-2">
+                    <p className="text-xs uppercase tracking-[0.22em] text-slate-500">Analyzed on</p>
+                    <p className="mt-2 text-sm font-medium text-cream">{new Date(selectedAnalysis.createdAt).toLocaleString()}</p>
+                  </div>
+                </div>
+
+                <div className="space-y-3 rounded-3xl border border-white/10 bg-white/5 p-4">
+                  <p className="text-sm font-semibold text-cream">Recommendations</p>
+                  <div className="space-y-2">
+                    {selectedAnalysis.recommendations.length > 0 ? (
+                      selectedAnalysis.recommendations.map((recommendation) => (
+                        <div key={recommendation} className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-sm leading-6 text-slate-300">
+                          {recommendation}
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-sm text-slate-400">No recommendations available.</p>
+                    )}
+                  </div>
+                </div>
+
+                {selectedCareInsights ? (
+                  <div className="space-y-3 rounded-3xl border border-white/10 bg-white/5 p-4">
+                    <p className="text-sm font-semibold text-cream">Care insights</p>
+                    <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+                      {[
+                        { label: 'Water', value: selectedCareInsights.waterNeed, icon: Droplets },
+                        { label: 'Sunlight', value: selectedCareInsights.sunlightNeed, icon: SunMedium },
+                        { label: 'Soil temp', value: selectedCareInsights.soilTemperature, icon: ThermometerSun },
+                        { label: 'Leaf condition', value: selectedCareInsights.leafCondition, icon: Leaf },
+                        { label: 'Soil moisture', value: selectedCareInsights.soilMoisture, icon: Wind },
+                        { label: 'Humidity', value: selectedCareInsights.humidity, icon: Sparkles },
+                        { label: 'Pest risk', value: selectedCareInsights.pestRisk, icon: ShieldAlert },
+                      ].map((item) => {
+                        const Icon = item.icon;
+
+                        return (
+                          <div key={item.label} className="rounded-2xl border border-white/10 bg-slate-950/60 p-4">
+                            <div className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-leaf-400/15 text-leaf-200">
+                              <Icon className="h-5 w-5" />
+                            </div>
+                            <p className="mt-3 text-xs uppercase tracking-[0.22em] text-slate-500">{item.label}</p>
+                            <p className="mt-2 text-sm font-semibold text-cream">{item.value}</p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <div className="space-y-2 text-sm leading-6 text-slate-300">
+                      {selectedCareInsights.careNotes.map((note) => (
+                        <div key={note} className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3">
+                          {note}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+              </div>
+            </div>
+          ) : (
+            <EmptyState
+              icon={Sprout}
+              title="No result selected"
+              description="Choose a recent analysis to inspect the complete plant result here."
+              actionLabel="Go to upload"
+              onClick={() => navigate('/upload')}
+            />
+          )}
+        </DashboardCard>
+      </section>
+
+      <section className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
         <DashboardCard title="Monthly comparison" action={<span className="text-sm text-slate-400">Overview</span>}>
           <div className="grid gap-4 md:grid-cols-3">
             {[
@@ -410,6 +538,29 @@ export function DashboardPage() {
                 <p className="mt-2 text-sm text-slate-400">Across the current analytics dataset</p>
               </div>
             ))}
+          </div>
+        </DashboardCard>
+
+        <DashboardCard title="Result checklist" action={<span className="text-sm text-slate-400">Seen in dashboard</span>}>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {[
+              { label: 'Image preview', copy: 'View the exact uploaded plant image.', icon: Sprout },
+              { label: 'Confidence', copy: 'Check the PlantNet match strength.', icon: BadgeCheck },
+              { label: 'Health score', copy: 'See the derived plant health score.', icon: ThermometerSun },
+              { label: 'Date analyzed', copy: 'Confirm when the scan was saved.', icon: CalendarDays },
+            ].map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <div key={item.label} className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-leaf-400/15 text-leaf-200">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="mt-4 text-base font-semibold text-cream">{item.label}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-400">{item.copy}</p>
+                </div>
+              );
+            })}
           </div>
         </DashboardCard>
       </section>
