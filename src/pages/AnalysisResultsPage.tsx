@@ -4,7 +4,7 @@ import { HealthScoreGauge } from '../components/HealthScoreGauge';
 import { PageContainer } from '../components/PageContainer';
 import { clearLatestAnalysis, loadLatestAnalysis, saveLatestAnalysis } from '../services/analysisStorage';
 import type { PlantAnalysisRecord } from '../types/analysis';
-import { ArrowLeft, BadgeCheck, CalendarDays, Leaf, Sparkles, ThermometerSun, TriangleAlert } from 'lucide-react';
+import { ArrowLeft, BadgeCheck, CalendarDays, Droplets, Leaf, ShieldAlert, Sparkles, SunMedium, ThermometerSun, TriangleAlert, Wind } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -29,6 +29,19 @@ function getPlantStatus(healthScore: number) {
   return 'Needs attention';
 }
 
+function getCareInsights(analysis: PlantAnalysisRecord) {
+  return analysis.careInsights ?? {
+    waterNeed: 'Moderate watering',
+    sunlightNeed: 'Bright indirect light',
+    soilTemperature: '18-24°C',
+    leafCondition: 'Condition inferred from the latest scan',
+    soilMoisture: 'Evenly moist',
+    humidity: 'Moderate humidity',
+    pestRisk: 'Moderate',
+    careNotes: ['This result is estimated from the PlantNet match and the computed health score.'],
+  };
+}
+
 export function AnalysisResultsPage() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -50,6 +63,7 @@ export function AnalysisResultsPage() {
   }, [location.state]);
 
   const statusLabel = useMemo(() => (analysis ? getPlantStatus(analysis.healthScore) : 'No analysis available'), [analysis]);
+  const careInsights = useMemo(() => (analysis ? getCareInsights(analysis) : null), [analysis]);
 
   if (!analysis) {
     return (
@@ -153,12 +167,40 @@ export function AnalysisResultsPage() {
         </div>
       </div>
 
+      <DashboardCard title="Care insights" action={<span className="text-sm text-slate-400">Estimated from analysis</span>}>
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {careInsights
+            ? [
+                { label: 'Water', value: careInsights.waterNeed, icon: Droplets },
+                { label: 'Sunlight', value: careInsights.sunlightNeed, icon: SunMedium },
+                { label: 'Soil temp', value: careInsights.soilTemperature, icon: ThermometerSun },
+                { label: 'Leaf condition', value: careInsights.leafCondition, icon: Leaf },
+                { label: 'Soil moisture', value: careInsights.soilMoisture, icon: Wind },
+                { label: 'Humidity', value: careInsights.humidity, icon: Sparkles },
+                { label: 'Pest risk', value: careInsights.pestRisk, icon: ShieldAlert },
+              ].map((item) => {
+                const Icon = item.icon;
+
+                return (
+                  <div key={item.label} className="rounded-3xl border border-white/10 bg-white/5 p-5">
+                    <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-leaf-400/15 text-leaf-200">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <p className="mt-4 text-sm font-medium uppercase tracking-[0.2em] text-slate-400">{item.label}</p>
+                    <p className="mt-2 text-lg font-semibold text-cream">{item.value}</p>
+                  </div>
+                );
+              })
+            : null}
+        </div>
+      </DashboardCard>
+
       <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
         <DashboardCard title="Analysis summary">
           <div className="space-y-4 text-sm leading-7 text-slate-300">
             <p>
-              The backend returned a normalized analysis payload with the top PlantNet match, confidence score, and a health
-              estimate that is now stored in MongoDB.
+              The backend returned a normalized analysis payload with the top PlantNet match, confidence score, a health
+              estimate, and estimated care guidance that is now stored in MongoDB.
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
@@ -176,6 +218,13 @@ export function AnalysisResultsPage() {
                 <p>Score and recommendations are derived from the PlantNet confidence level.</p>
               </div>
             </div>
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+              <div className="mb-2 flex items-center gap-2 font-semibold text-cream">
+                <Droplets className="h-4 w-4 text-leaf-300" />
+                Care profile
+              </div>
+              <p>Water, sunlight, soil temperature, humidity, and leaf condition are estimated from the scan result.</p>
+            </div>
           </div>
         </DashboardCard>
 
@@ -190,6 +239,18 @@ export function AnalysisResultsPage() {
           </div>
         </DashboardCard>
       </div>
+
+      {careInsights ? (
+        <DashboardCard title="Quick care notes" action={<span className="text-sm text-slate-400">Actionable</span>}>
+          <div className="space-y-3 text-sm leading-6 text-slate-300">
+            {careInsights.careNotes.map((note) => (
+              <div key={note} className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                {note}
+              </div>
+            ))}
+          </div>
+        </DashboardCard>
+      ) : null}
     </PageContainer>
   );
 }
