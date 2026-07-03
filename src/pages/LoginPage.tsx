@@ -41,8 +41,9 @@ export function LoginPage() {
     setError(null);
 
     try {
-      await login({ email, password });
-      navigate(redirectTo, { replace: true });
+      const session = await login({ email, password });
+      const fallbackRedirect = session.user.isAdmin ? '/admin' : '/dashboard';
+      navigate(redirectTo === '/dashboard' ? fallbackRedirect : redirectTo, { replace: true });
     } catch (authError) {
       setError(getErrorMessage(authError));
     } finally {
