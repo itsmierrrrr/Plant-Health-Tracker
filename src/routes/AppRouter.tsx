@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { DashboardPage } from '../pages/DashboardPage';
+import { AdminPage } from '../pages/AdminPage';
 import { HomePage } from '../pages/HomePage';
 import { HistoryPage } from '../pages/HistoryPage';
 import { AnalysisResultsPage } from '../pages/AnalysisResultsPage';
@@ -8,6 +9,7 @@ import { LoginPage } from '../pages/LoginPage';
 import { RegisterPage } from '../pages/RegisterPage';
 import { MainLayout } from '../layouts/MainLayout';
 import { ProtectedRoute } from '../components/ProtectedRoute';
+import { AdminRoute } from '../components/AdminRoute';
 
 export function AppRouter() {
   return (
@@ -21,6 +23,9 @@ export function AppRouter() {
           <Route path="/upload" element={<UploadPlantPage />} />
           <Route path="/results" element={<AnalysisResultsPage />} />
           <Route path="/history" element={<HistoryPage />} />
+        </Route>
+        <Route element={<AdminRoute />}>
+          <Route path="/admin" element={<AdminPage />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
