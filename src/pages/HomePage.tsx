@@ -40,17 +40,17 @@ export function HomePage() {
                 View dashboard
               </Link>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-2">
               {statistics.map((item) => (
                 <StatisticCard key={item.label} {...item} />
               ))}
             </div>
           </div>
 
-          <div className="relative">
+          <div className="relative pt-48" >
             <div className="absolute -inset-6 rounded-[2.5rem] bg-hero-glow blur-2xl" />
             <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/80 p-6 shadow-soft">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between ">
                 <div>
                   <p className="text-sm uppercase tracking-[0.25em] text-slate-400">Dashboard preview</p>
                   <h2 className="mt-2 text-2xl font-semibold text-cream">Plant health snapshot</h2>
@@ -59,26 +59,9 @@ export function HomePage() {
                   <BarChart3 className="h-6 w-6" />
                 </div>
               </div>
-              <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-4">
-                  <div className="flex items-center justify-between text-sm text-slate-400">
-                    <span>Collection health</span>
-                    <span>92%</span>
-                  </div>
-                  <div className="mt-4 h-40 rounded-2xl bg-[linear-gradient(180deg,rgba(91,136,178,0.16),rgba(255,255,255,0.03))] p-4">
-                    <div className="flex h-full items-end gap-3">
-                      {[42, 58, 50, 70, 64, 78, 88].map((value, index) => (
-                        <div key={value} className="flex-1">
-                          <div
-                            className="rounded-t-2xl bg-gradient-to-t from-brand-400 to-leaf-300"
-                            style={{ height: `${value}%`, animationDelay: `${index * 100}ms` }}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-4 rounded-3xl border border-white/10 bg-white/5 p-4">
+              <div className="mt-10 h-96 grid gap-100 sm:grid-cols-1">
+                 
+                <div className="space-y-4 rounded-3xl h-96 border border-white/10 bg-white/5 p-4">
                   {featuredPlantCards.map((card) => {
                     const Icon = card.icon;
                     return (
