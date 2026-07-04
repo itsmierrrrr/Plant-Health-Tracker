@@ -1,5 +1,5 @@
 import { PlantAnalysis } from '../models/PlantAnalysis.js';
-import { identifyPlantWithPlantNet } from './plantnetService.js';
+import { identifyPlantWithOpenRouter } from './openrouterService.js';
 import { buildCareInsights, buildPlantRecommendations, calculatePlantHealthScore } from './analysisService.js';
 
 function buildFallbackCareInsights(document) {
@@ -32,7 +32,7 @@ export function normalizeAnalysisDocument(document) {
 }
 
 export async function processPlantAnalysis({ filePath, fileName, imageUrl, userId }) {
-  const identification = await identifyPlantWithPlantNet({ filePath, fileName });
+  const identification = await identifyPlantWithOpenRouter({ filePath, fileName });
   const healthScore = calculatePlantHealthScore(identification.confidence);
   const recommendations = buildPlantRecommendations(identification.commonName, identification.scientificName, healthScore);
   const careInsights = buildCareInsights(identification.commonName, identification.scientificName, healthScore, identification.confidence);
