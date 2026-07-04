@@ -53,7 +53,7 @@ export function buildCareInsights(commonName = '', scientificName = '', healthSc
     humidity: getCareRange(healthScore, 'Moderate humidity', 'Balanced humidity', 'Higher humidity recommended'),
     pestRisk: riskLevel,
     careNotes: [
-      `${plantType || 'This plant'} is being estimated from the PlantNet match and health score.`,
+      `${plantType || 'This plant'} is being estimated from the OpenRouter image analysis and health score.`,
       getCareRange(
         healthScore,
         'Keep the plant in steady conditions and avoid overwatering.',
