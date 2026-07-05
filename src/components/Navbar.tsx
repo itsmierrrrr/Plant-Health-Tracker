@@ -37,7 +37,7 @@ export function Navbar() {
             </span>
             <div className="leading-tight">
               <p className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-slate-400">AI Plant Health Tracker</p>
-              <p className="font-display text-lg font-semibold text-cream">Verdant Lens</p>
+              <p className="font-display text-lg font-semibold text-cream">Plant Pulse</p>
             </div>
           </NavLink>
 
