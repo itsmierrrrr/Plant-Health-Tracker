@@ -76,13 +76,13 @@ export const features: FeatureItem[] = [
 
 export const statistics: StatisticItem[] = [
   {
-    label: 'Plants scanned',
+    label: 'Total plants scanned',
     value: '12.4k',
     detail: '+18% this month',
     icon: TrendingUp,
   },
   {
-    label: 'Healthy plants',
+    label: 'Total healthy plants',
     value: '91%',
     detail: 'Across recent scans',
     icon: SunMedium,
@@ -94,7 +94,7 @@ export const statistics: StatisticItem[] = [
     icon: Bell,
   },
   {
-    label: 'Care streak',
+    label: 'Total care streak',
     value: '27 days',
     detail: 'Consistent monitoring',
     icon: Wind,
