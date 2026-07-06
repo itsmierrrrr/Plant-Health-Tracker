@@ -198,7 +198,7 @@ export function DashboardPage() {
       soilMoisture: 'Evenly moist',
       humidity: 'Moderate humidity',
       pestRisk: 'Moderate',
-      careNotes: ['This care profile is estimated from the PlantNet match and health score.'],
+      careNotes: ['This care profile is estimated from the OpenRouter match and health score.'],
     };
   }, [selectedAnalysis]);
 
@@ -545,7 +545,7 @@ export function DashboardPage() {
           <div className="grid gap-3 sm:grid-cols-2">
             {[
               { label: 'Image preview', copy: 'View the exact uploaded plant image.', icon: Sprout },
-              { label: 'Confidence', copy: 'Check the PlantNet match strength.', icon: BadgeCheck },
+              { label: 'Confidence', copy: 'Check the OpenRouter match strength.', icon: BadgeCheck },
               { label: 'Health score', copy: 'See the derived plant health score.', icon: ThermometerSun },
               { label: 'Date analyzed', copy: 'Confirm when the scan was saved.', icon: CalendarDays },
             ].map((item) => {
