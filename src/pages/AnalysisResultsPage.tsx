@@ -30,7 +30,8 @@ function getPlantStatus(healthScore: number) {
 }
 
 function getCareInsights(analysis: PlantAnalysisRecord) {
-  return analysis.careInsights ?? {
+  // If backend provided care insights, use them. Otherwise synthesize reasonable defaults
+  const base = analysis.careInsights ?? {
     waterNeed: 'Moderate watering',
     sunlightNeed: 'Bright indirect light',
     soilTemperature: '18-24°C',
@@ -38,8 +39,77 @@ function getCareInsights(analysis: PlantAnalysisRecord) {
     soilMoisture: 'Evenly moist',
     humidity: 'Moderate humidity',
     pestRisk: 'Moderate',
-    careNotes: ['This result is estimated from the PlantNet match and the computed health score.'],
+    careNotes: undefined,
   };
+
+  const generatedNotes = base.careNotes ?? generateCareNotes(analysis, base);
+
+  return {
+    ...base,
+    careNotes: generatedNotes,
+  };
+}
+
+function generateCareNotes(analysis: PlantAnalysisRecord, insights: any) {
+  const notes: string[] = [];
+
+  const name = analysis.commonName ?? 'This plant';
+  const sci = analysis.scientificName ? ` (${analysis.scientificName})` : '';
+
+  notes.push(`${name}${sci} identified with ${analysis.confidence}% confidence.`);
+
+  const status = getPlantStatus(analysis.healthScore);
+  notes.push(`Health score ${analysis.healthScore} — ${status}.`);
+
+  if (insights.leafCondition) {
+    notes.push(`Leaf condition: ${insights.leafCondition}. Inspect leaves for discoloration, spots, or wilting and remove affected foliage.`);
+  }
+
+  if (insights.waterNeed) {
+    const wn = (insights.waterNeed as string).toLowerCase();
+    let waterTip = `Follow recommended watering: ${insights.waterNeed}. Check soil moisture before watering.`;
+    if (wn.includes('light')) waterTip = 'Water sparingly: allow the top 2–3 cm of soil to dry before watering.';
+    else if (wn.includes('moderate')) waterTip = 'Water when the top 1–2 cm feels dry; avoid waterlogging.';
+    else if (wn.includes('heavy') || wn.includes('frequent')) waterTip = 'Keep soil evenly moist but avoid standing water.';
+    notes.push(`Water: ${insights.waterNeed}. ${waterTip}`);
+  }
+
+  if (insights.sunlightNeed) {
+    notes.push(`Light: ${insights.sunlightNeed}. Place where it receives bright, indirect light for several hours daily.`);
+  }
+
+  if (insights.soilMoisture) {
+    notes.push(`Soil moisture: ${insights.soilMoisture}. Adjust watering frequency if soil is consistently too wet or dry.`);
+  } else if (insights.soilTemperature) {
+    notes.push(`Soil temperature: ${insights.soilTemperature}. Keep potting mix within the recommended range.`);
+  }
+
+  if (insights.humidity) {
+    const h = (insights.humidity as string).toLowerCase();
+    if (h.includes('low')) notes.push('Humidity: Low — increase humidity with a pebble tray, grouping, or occasional misting.');
+    else if (h.includes('moderate')) notes.push('Humidity: Moderate — normal indoor humidity is suitable.');
+    else if (h.includes('high')) notes.push('Humidity: High — ensure good air circulation to prevent fungal issues.');
+    else notes.push(`Humidity: ${insights.humidity}.`);
+  }
+
+  if (insights.pestRisk) {
+    const pr = (insights.pestRisk as string).toLowerCase();
+    if (pr.includes('low')) notes.push('Pest risk: Low — no immediate action, but inspect periodically.');
+    else if (pr.includes('moderate')) notes.push('Pest risk: Moderate — inspect undersides of leaves weekly and treat early signs of infestation.');
+    else if (pr.includes('high')) notes.push('Pest risk: High — isolate the plant and treat with an appropriate miticide or insecticidal soap.');
+    else notes.push(`Pest risk: ${insights.pestRisk}.`);
+  }
+
+  // Tailored action summary
+  if (analysis.healthScore >= 85) {
+    notes.push('Action: Plant appears healthy — continue regular care and monitor weekly.');
+  } else if (analysis.healthScore >= 65) {
+    notes.push('Action: Monitor and adjust care over the next 1–2 weeks; prioritize light and watering checks.');
+  } else {
+    notes.push('Action: Plant needs attention — start by checking soil moisture, improving drainage, and inspecting for pests or disease.');
+  }
+
+  return notes;
 }
 
 export function AnalysisResultsPage() {
@@ -78,6 +148,8 @@ export function AnalysisResultsPage() {
       </PageContainer>
     );
   }
+
+  const resolvedCareInsights = careInsights ?? getCareInsights(analysis);
 
   return (
     <PageContainer className="space-y-8 pb-16 pt-8">
@@ -199,31 +271,35 @@ export function AnalysisResultsPage() {
         <DashboardCard title="Analysis summary">
           <div className="space-y-4 text-sm leading-7 text-slate-300">
             <p>
-              The backend returned a normalized analysis payload with the top PlantNet match, confidence score, a health
-              estimate, and estimated care guidance that is now stored in MongoDB.
+              {analysis.commonName}
+              {analysis.scientificName ? ` (${analysis.scientificName})` : ''} was matched with {analysis.confidence}% confidence. Health score is {analysis.healthScore} — {statusLabel}.
             </p>
+
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
                 <div className="mb-2 flex items-center gap-2 font-semibold text-cream">
                   <Sparkles className="h-4 w-4 text-leaf-300" />
                   Normalized data
                 </div>
-                <p>Clean frontend-ready fields for common and scientific names.</p>
+                <p>Matched taxonomy and cleaned fields for display (common & scientific names).</p>
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
                 <div className="mb-2 flex items-center gap-2 font-semibold text-cream">
                   <ThermometerSun className="h-4 w-4 text-leaf-300" />
                   Health context
                 </div>
-                <p>Score and recommendations are derived from the PlantNet confidence level.</p>
+                <p>Health estimate computed from image condition and OpenRouter confidence.</p>
               </div>
             </div>
+
             <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
               <div className="mb-2 flex items-center gap-2 font-semibold text-cream">
                 <Droplets className="h-4 w-4 text-leaf-300" />
                 Care profile
               </div>
-              <p>Water, sunlight, soil temperature, humidity, and leaf condition are estimated from the scan result.</p>
+              <p>
+                Estimated care: {resolvedCareInsights.waterNeed}, light: {resolvedCareInsights.sunlightNeed}, soil: {resolvedCareInsights.soilMoisture ?? resolvedCareInsights.soilTemperature}, humidity: {resolvedCareInsights.humidity}, pest risk: {resolvedCareInsights.pestRisk}.
+              </p>
             </div>
           </div>
         </DashboardCard>
