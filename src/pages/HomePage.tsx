@@ -20,8 +20,7 @@ export function HomePage() {
                 A modern way to track plant health with clarity and style.
               </h1>
               <p className="max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
-                Verdant Lens brings a premium SaaS-style experience to plant care with clean uploads, health scoring,
-                trend views, and polished responsive dashboards.
+                Plant Pulse simplifies plant care with accurate health assessments, growth tracking, and an elegant, and a seamless user experience.
               </p>
             </div>
             <div className="flex flex-wrap gap-4">
@@ -52,8 +51,8 @@ export function HomePage() {
             <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/80 p-6 shadow-soft">
               <div className="flex items-center justify-between ">
                 <div>
-                  <p className="text-sm uppercase tracking-[0.25em] text-slate-400">Dashboard preview</p>
-                  <h2 className="mt-2 text-2xl font-semibold text-cream">Plant health snapshot</h2>
+                  <p className="text-sm uppercase tracking-[0.25em] text-slate-400"></p>
+                  <h6 className="mt-2 text-2xl font-semibold text-cream">Dashboard preview</h6>
                 </div>
                 <div className="rounded-2xl bg-leaf-400/15 p-3 text-leaf-200">
                   <BarChart3 className="h-6 w-6" />
