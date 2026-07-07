@@ -196,7 +196,7 @@ export function UploadPlantPage() {
           </h1>
           <p className="max-w-2xl text-lg leading-8 text-slate-300">
             Upload a plant image, stream progress into the UI, and redirect to the results view after the backend returns
-            normalized analysis data from PlantNet.
+            normalized analysis data from OpenRouter.
           </p>
         </div>
 
@@ -321,7 +321,7 @@ export function UploadPlantPage() {
                   <ScanSearch className="h-4 w-4 text-leaf-300" />
                   Backend analysis
                 </span>
-                <span>{status === 'complete' ? 'Complete' : status === 'analyzing' ? 'PlantNet running' : 'Pending'}</span>
+                <span>{status === 'complete' ? 'Complete' : status === 'analyzing' ? 'OpenRouter running' : 'Pending'}</span>
               </div>
               <div className="mt-3 space-y-3">
                 {isProcessing ? (
@@ -332,7 +332,7 @@ export function UploadPlantPage() {
                   </>
                 ) : (
                   <p className="text-sm leading-6 text-slate-300">
-                    Select a plant image, then start analysis to send it to the backend and PlantNet service.
+                    Select a plant image, then start analysis to send it to the backend and OpenRouter service.
                   </p>
                 )}
               </div>
