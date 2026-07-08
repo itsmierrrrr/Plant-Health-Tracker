@@ -6,6 +6,16 @@ export type PlantAnalysisRecord = {
   confidence: number;
   healthScore: number;
   recommendations: string[];
+  careInsights?: {
+    waterNeed: string;
+    sunlightNeed: string;
+    soilTemperature: string;
+    leafCondition: string;
+    soilMoisture: string;
+    humidity: string;
+    pestRisk: string;
+    careNotes: string[];
+  };
   createdAt: string;
 };
 
