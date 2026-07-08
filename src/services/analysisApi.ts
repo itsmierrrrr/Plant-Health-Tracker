@@ -6,9 +6,6 @@ export async function analyzePlantImage(file: File, onUploadProgress?: UploadPro
   formData.append('image', file);
 
   const response = await api.post<ApiResponse<PlantAnalysisRecord>>('/api/analyze', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
     onUploadProgress: (event) => {
       if (!event.total) {
         return;
@@ -23,11 +20,11 @@ export async function analyzePlantImage(file: File, onUploadProgress?: UploadPro
 }
 
 export async function fetchAnalysisById(id: string) {
-  const response = await api.get<ApiResponse<PlantAnalysisRecord>>(`/api/analysis/${id}`);
+  const response = await api.get<ApiResponse<PlantAnalysisRecord>>(`/api/analyze/${id}`);
   return response.data.data;
 }
 
 export async function fetchRecentAnalyses() {
-  const response = await api.get<ApiResponse<PlantAnalysisRecord[]>>('/api/analysis');
+  const response = await api.get<ApiResponse<PlantAnalysisRecord[]>>('/api/analyze');
   return response.data.data;
 }
