@@ -171,13 +171,13 @@ export const recentAnalyses: AnalysisItem[] = [
 
 export const featuredPlantCards = [
   {
-    title: 'Health trends',
-    description: 'Track the overall condition of your plant collection over time.',
+    title: 'Growth analytics',
+    description: 'Visualize your plants\' progress with easy-to-read health statistics.',
     icon: TreePine,
   },
   {
-    title: 'Care reminders',
-    description: 'Keep watering, rotation, and light checks on a dependable schedule.',
+    title: 'Personalized care',
+    description: 'Receive customized care plans based on each plant\'s unique needs.',
     icon: ClipboardList,
   },
   {
