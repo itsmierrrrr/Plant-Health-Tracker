@@ -52,7 +52,7 @@ export function HomePage() {
               <div className="flex items-center justify-between ">
                 <div>
                   <p className="text-sm uppercase tracking-[0.25em] text-slate-400"></p>
-                  <h6 className="mt-2 text-2xl font-semibold text-cream">Dashboard preview</h6>
+                  <h6 className="mt-2 text-2xl font-bold text-cream">What's Inside</h6>
                 </div>
                 <div className="rounded-2xl bg-leaf-400/15 p-3 text-leaf-200">
                   <BarChart3 className="h-6 w-6" />
