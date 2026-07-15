@@ -181,8 +181,8 @@ export const featuredPlantCards = [
     icon: ClipboardList,
   },
   {
-    title: 'Early alerts',
-    description: 'Spot stress indicators before they become visible to the casual eye.',
+    title: 'Instant detection',
+    description: 'Identify problems early using AI-powered image analysis.',
     icon: Bell,
   },
 ];
