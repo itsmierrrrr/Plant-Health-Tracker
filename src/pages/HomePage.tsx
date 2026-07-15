@@ -48,7 +48,7 @@ export function HomePage() {
 
           <div className="relative pt-48" >
             <div className="absolute -inset-6 rounded-[2.5rem] bg-hero-glow blur-2xl" />
-            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/80 p-6 shadow-soft">
+            <div className="relative overflow-hidden rounded-[2rem] border top-20 border-white/10 bg-slate-950/80 p-6 shadow-soft">
               <div className="flex items-center justify-between ">
                 <div>
                   <p className="text-sm uppercase tracking-[0.25em] text-slate-400"></p>
