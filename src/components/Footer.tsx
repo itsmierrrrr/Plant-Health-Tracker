@@ -1,4 +1,4 @@
-import { Leaf } from 'lucide-react';
+import { Sprout } from 'lucide-react';
 import { Instagram, Mail, Phone, Facebook } from 'lucide-react'
 import { FaXTwitter } from 'react-icons/fa6';
 
@@ -9,8 +9,8 @@ export function Footer() {
   <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-4 py-8 sm:flex-row sm:px-6 lg:px-8">
     {/* Logo */}
     <div className="flex items-center gap-3">
-      <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-leaf-400/15 text-leaf-200 ring-1 ring-inset ring-leaf-300/20">
-        <Leaf className="h-5 w-5" />
+      <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-leaf-400 to-brand-400 text-brand-900 shadow-lg shadow-leaf-500/20">
+        <Sprout className="h-6 w-6" />
       </span>
 
       <div>
