@@ -14,7 +14,7 @@ export function Footer() {
       </span>
 
       <div>
-        <h3 className="font-semibold text-cream">Plant Lens</h3>
+        <h3 className="font-semibold text-cream">Flora Sense</h3>
         <p className="text-sm text-slate-400">
           Smart care for every plant.
         </p>
@@ -69,7 +69,7 @@ export function Footer() {
   {/* Bottom Row */}
   <div className="border-t border-white/0">
     <div className="mx-auto max-w-7xl px-4 py-4 text-center text-sm text-slate-400 sm:px-6 lg:px-8">
-      © {new Date().getFullYear()} Plant Lens. All rights reserved.
+      © {new Date().getFullYear()} Flora Senses reserved.
     </div>
   </div>
 </footer>

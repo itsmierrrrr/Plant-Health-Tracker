@@ -20,7 +20,7 @@ export function HomePage() {
                 A modern way to track plant health with clarity and style.
               </h1>
               <p className="max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
-                Plant Lens simplifies plant care with accurate health assessments, growth tracking, and an elegant, and a seamless user experience.
+                Flora Sense simplifies plant care with accurate health assessments, growth tracking, and an elegant, and a seamless user experience.
               </p>
             </div>
             <div className="flex flex-wrap gap-4">
