@@ -302,7 +302,7 @@ export function AnalysisResultsPage() {
                   <ThermometerSun className="h-4 w-4 text-leaf-300" />
                   Health context
                 </div>
-                <p>Health estimate computed from image condition, PlantNet identification, and OpenRouter analysis.</p>
+                <p>Health estimate computed from image condition, PlantNet identification, and analysis.</p>
               </div>
             </div>
 

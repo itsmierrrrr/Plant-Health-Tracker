@@ -198,7 +198,7 @@ export function DashboardPage() {
       soilMoisture: 'Evenly moist',
       humidity: 'Moderate humidity',
       pestRisk: 'Moderate',
-      careNotes: ['This care profile is estimated from PlantNet identification and OpenRouter detailed analysis.'],
+      careNotes: ['This care profile is estimated from PlantNet identification and detailed analysis.'],
     };
   }, [selectedAnalysis]);
 
