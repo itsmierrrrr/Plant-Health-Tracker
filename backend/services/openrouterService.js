@@ -2,6 +2,7 @@ import axios from 'axios';
 import fs from 'fs';
 import path from 'path';
 import { AppError } from '../utils/AppError.js';
+import { buildCareInsights, buildPlantRecommendations, calculatePlantHealthScore } from './analysisService.js';
 
 function getOpenRouterConfig() {
   const apiKey = process.env.OPENROUTER_API_KEY;
@@ -68,35 +69,74 @@ function normalizeConfidence(score) {
   return Math.max(0, Math.min(100, Math.round(numericScore)));
 }
 
-function normalizeOpenRouterResponse(payload) {
-  const parsed = payload || {};
-  const commonName = typeof parsed.commonName === 'string' && parsed.commonName.trim().length > 0 ? parsed.commonName.trim() : 'Unknown plant';
-  const scientificName = typeof parsed.scientificName === 'string' && parsed.scientificName.trim().length > 0 ? parsed.scientificName.trim() : 'Unknown species';
+function normalizeRecommendedStrings(items, fallbackItems) {
+  if (Array.isArray(items)) {
+    const cleanedItems = items
+      .filter((item) => typeof item === 'string')
+      .map((item) => item.trim())
+      .filter((item) => item.length > 0);
+
+    if (cleanedItems.length > 0) {
+      return cleanedItems;
+    }
+  }
+
+  return fallbackItems;
+}
+
+function normalizeAnalysisInsights(payload, commonName, scientificName, healthScore, confidence) {
+  const fallbackInsights = buildCareInsights(commonName, scientificName, healthScore, confidence);
+  const parsedInsights = payload?.careInsights && typeof payload.careInsights === 'object' ? payload.careInsights : {};
 
   return {
-    commonName,
-    scientificName,
-    confidence: normalizeConfidence(parsed.confidence),
-    plantType: `${commonName} ${scientificName}`.trim(),
-    matched: Boolean(parsed.matched ?? (commonName !== 'Unknown plant' || scientificName !== 'Unknown species')),
-    rawMatch: {
-      source: 'openrouter',
-      model: parsed.model || undefined,
-      notes: parsed.notes || parsed.reasoning || undefined,
-    },
+    waterNeed: typeof parsedInsights.waterNeed === 'string' && parsedInsights.waterNeed.trim().length > 0 ? parsedInsights.waterNeed.trim() : fallbackInsights.waterNeed,
+    sunlightNeed: typeof parsedInsights.sunlightNeed === 'string' && parsedInsights.sunlightNeed.trim().length > 0 ? parsedInsights.sunlightNeed.trim() : fallbackInsights.sunlightNeed,
+    soilTemperature: typeof parsedInsights.soilTemperature === 'string' && parsedInsights.soilTemperature.trim().length > 0 ? parsedInsights.soilTemperature.trim() : fallbackInsights.soilTemperature,
+    leafCondition: typeof parsedInsights.leafCondition === 'string' && parsedInsights.leafCondition.trim().length > 0 ? parsedInsights.leafCondition.trim() : fallbackInsights.leafCondition,
+    soilMoisture: typeof parsedInsights.soilMoisture === 'string' && parsedInsights.soilMoisture.trim().length > 0 ? parsedInsights.soilMoisture.trim() : fallbackInsights.soilMoisture,
+    humidity: typeof parsedInsights.humidity === 'string' && parsedInsights.humidity.trim().length > 0 ? parsedInsights.humidity.trim() : fallbackInsights.humidity,
+    pestRisk: typeof parsedInsights.pestRisk === 'string' && parsedInsights.pestRisk.trim().length > 0 ? parsedInsights.pestRisk.trim() : fallbackInsights.pestRisk,
+    careNotes: normalizeRecommendedStrings(parsedInsights.careNotes, fallbackInsights.careNotes),
   };
 }
 
-export async function identifyPlantWithOpenRouter({ filePath, fileName }) {
+function normalizeOpenRouterAnalysisResponse(payload, identification) {
+  const parsed = payload || {};
+  const commonName = identification?.commonName || 'Unknown plant';
+  const scientificName = identification?.scientificName || 'Unknown species';
+  const confidence = identification?.confidence ?? 0;
+  const healthScore = Number.isFinite(Number(parsed.healthScore))
+    ? Math.max(0, Math.min(100, Math.round(Number(parsed.healthScore))))
+    : calculatePlantHealthScore(confidence);
+  const recommendations = normalizeRecommendedStrings(
+    parsed.recommendations,
+    buildPlantRecommendations(commonName, scientificName, healthScore)
+  );
+
+  return {
+    healthScore,
+    recommendations,
+    careInsights: normalizeAnalysisInsights(parsed, commonName, scientificName, healthScore, confidence),
+    analysisSummary: typeof parsed.analysisSummary === 'string' && parsed.analysisSummary.trim().length > 0 ? parsed.analysisSummary.trim() : undefined,
+    confidence: confidence > 0 ? confidence : normalizeConfidence(parsed.confidence),
+  };
+}
+
+export async function analyzePlantWithOpenRouter({ filePath, fileName, identification }) {
   const { apiKey, baseUrl, model, siteUrl, appName } = getOpenRouterConfig();
   const imageDataUri = buildImageDataUri(filePath);
+  const plantName = identification?.commonName || 'Unknown plant';
+  const scientificName = identification?.scientificName || 'Unknown species';
+  const confidence = identification?.confidence ?? 0;
 
   const prompt = [
-    'Identify the plant in the image as accurately as possible.',
+    'You are analyzing a plant image after the plant has already been identified by PlantNet.',
+    `PlantNet identification: common name ${plantName}; scientific name ${scientificName}; match confidence ${confidence}%.`,
     'Return only valid JSON with the following keys:',
-    '{"commonName":"string","scientificName":"string","confidence":0-100,"matched":true|false,"notes":"short reasoning"}',
-    'Use the plant that best matches the image. If you are uncertain, set matched to false and use Unknown plant / Unknown species.',
-    'Confidence must be an integer from 0 to 100.',
+    '{"healthScore":0-100,"recommendations":["string"],"careInsights":{"waterNeed":"string","sunlightNeed":"string","soilTemperature":"string","leafCondition":"string","soilMoisture":"string","humidity":"string","pestRisk":"string","careNotes":["string"]},"analysisSummary":"string"}',
+    'Focus on the plant condition, health status, and practical care guidance for this specific plant.',
+    'HealthScore must be an integer from 0 to 100.',
+    'Provide 3 to 6 concise care recommendations.',
     'Do not wrap the JSON in markdown fences or add extra commentary.',
   ].join(' ');
 
@@ -108,7 +148,7 @@ export async function identifyPlantWithOpenRouter({ filePath, fileName }) {
         messages: [
           {
             role: 'system',
-            content: 'You are a plant identification assistant. Respond with strict JSON only.',
+            content: 'You are a plant health analysis assistant. Respond with strict JSON only.',
           },
           {
             role: 'user',
@@ -138,7 +178,7 @@ export async function identifyPlantWithOpenRouter({ filePath, fileName }) {
       throw new AppError('OpenRouter returned an empty response', 502);
     }
 
-    return normalizeOpenRouterResponse(parseJsonResponse(content));
+    return normalizeOpenRouterAnalysisResponse(parseJsonResponse(content), identification);
   } catch (error) {
     if (error.response) {
       const statusCode = error.response.status || 502;

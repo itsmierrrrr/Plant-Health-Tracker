@@ -1,5 +1,6 @@
 import { PlantAnalysis } from '../models/PlantAnalysis.js';
-import { identifyPlantWithOpenRouter } from './openrouterService.js';
+import { identifyPlantWithPlantNet } from './plantnetService.js';
+import { analyzePlantWithOpenRouter } from './openrouterService.js';
 import { buildCareInsights, buildPlantRecommendations, calculatePlantHealthScore } from './analysisService.js';
 
 function buildFallbackCareInsights(document) {
@@ -32,10 +33,13 @@ export function normalizeAnalysisDocument(document) {
 }
 
 export async function processPlantAnalysis({ filePath, fileName, imageUrl, userId }) {
-  const identification = await identifyPlantWithOpenRouter({ filePath, fileName });
-  const healthScore = calculatePlantHealthScore(identification.confidence);
-  const recommendations = buildPlantRecommendations(identification.commonName, identification.scientificName, healthScore);
-  const careInsights = buildCareInsights(identification.commonName, identification.scientificName, healthScore, identification.confidence);
+  const identification = await identifyPlantWithPlantNet({ filePath, fileName });
+  const analysis = await analyzePlantWithOpenRouter({ filePath, fileName, identification });
+  const healthScore = analysis.healthScore ?? calculatePlantHealthScore(identification.confidence);
+  const recommendations = Array.isArray(analysis.recommendations) && analysis.recommendations.length > 0
+    ? analysis.recommendations
+    : buildPlantRecommendations(identification.commonName, identification.scientificName, healthScore);
+  const careInsights = analysis.careInsights ?? buildCareInsights(identification.commonName, identification.scientificName, healthScore, identification.confidence);
 
   const savedAnalysis = await PlantAnalysis.create({
     userId,
@@ -51,5 +55,6 @@ export async function processPlantAnalysis({ filePath, fileName, imageUrl, userI
   return {
     analysis: normalizeAnalysisDocument(savedAnalysis),
     identification,
+    detailedAnalysis: analysis,
   };
 }

@@ -42,7 +42,7 @@ function getFallbackCareInsights() {
     soilMoisture: 'Evenly moist',
     humidity: 'Moderate humidity',
     pestRisk: 'Moderate',
-    careNotes: ['This care profile is estimated from the OpenRouter match and health score.'],
+    careNotes: ['This care profile is estimated from PlantNet identification and OpenRouter detailed analysis.'],
   };
 }
 

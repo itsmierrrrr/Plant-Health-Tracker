@@ -196,7 +196,7 @@ export function UploadPlantPage() {
           </h1>
           <p className="max-w-2xl text-lg leading-8 text-slate-300">
             Upload a plant image, stream progress into the UI, and redirect to the results view after the backend returns
-            normalized analysis data from OpenRouter.
+            PlantNet identification and OpenRouter analysis data.
           </p>
         </div>
 
@@ -321,7 +321,7 @@ export function UploadPlantPage() {
                   <ScanSearch className="h-4 w-4 text-leaf-300" />
                   Backend analysis
                 </span>
-                <span>{status === 'complete' ? 'Complete' : status === 'analyzing' ? 'OpenRouter running' : 'Pending'}</span>
+                <span>{status === 'complete' ? 'Complete' : status === 'analyzing' ? 'OpenRouter analysis running' : 'Pending'}</span>
               </div>
               <div className="mt-3 space-y-3">
                 {isProcessing ? (
@@ -332,7 +332,7 @@ export function UploadPlantPage() {
                   </>
                 ) : (
                   <p className="text-sm leading-6 text-slate-300">
-                    Select a plant image, then start analysis to send it to the backend and OpenRouter service.
+                    Select a plant image, then start analysis to send it through PlantNet identification and OpenRouter analysis.
                   </p>
                 )}
               </div>
@@ -345,7 +345,7 @@ export function UploadPlantPage() {
               </div>
               <p className="mt-3 text-sm leading-6 text-slate-300">
                 {status === 'complete'
-                  ? 'Analysis complete. You will be redirected to the results page with the normalized backend response.'
+                  ? 'Analysis complete. You will be redirected to the results page with the normalized PlantNet and OpenRouter response.'
                   : 'Once the request returns, the app will persist the record and navigate to the results page.'}
               </p>
             </div>

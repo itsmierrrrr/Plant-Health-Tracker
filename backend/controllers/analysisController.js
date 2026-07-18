@@ -26,7 +26,7 @@ export const analyzePlantImage = asyncHandler(async (request, response) => {
   const { imageUrl, fileName, filePath, commonName, scientificName, confidence } = getAnalysisInput(request);
 
   if (!request.file || !filePath) {
-    throw new AppError('An uploaded image file is required for OpenRouter analysis', 400);
+    throw new AppError('An uploaded image file is required for PlantNet identification', 400);
   }
 
   const validationErrors = validateAnalysisPayload({

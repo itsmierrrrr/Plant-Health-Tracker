@@ -2,6 +2,8 @@
 
 Modern React + Vite + Tailwind frontend concept for an AI Plant Health Tracker.
 
+The backend now identifies plants with PlantNet and uses OpenRouter for detailed analysis and care guidance.
+
 ## Install
 
 ```bash
