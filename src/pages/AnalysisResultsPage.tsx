@@ -158,7 +158,7 @@ export function AnalysisResultsPage() {
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-leaf-200">Analysis results</p>
           <h1 className="font-display text-4xl font-semibold text-cream sm:text-5xl">Backend analysis completed successfully.</h1>
           <p className="max-w-2xl text-lg leading-8 text-slate-300">
-            The upload was analyzed by the backend, normalized, stored in MongoDB, and redirected here with the returned result.
+            The upload was analyzed by the backend, normalized, and redirected here with the returned result.
           </p>
         </div>
 
