@@ -218,26 +218,38 @@ export function AnalysisResultsPage() {
           </DashboardCard>
 
           <DashboardCard title="Confidence and health">
-            <div className="grid gap-5 sm:grid-cols-2">
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-leaf-400/15 text-leaf-200">
-                    <BadgeCheck className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-slate-400">Confidence score</p>
-                    <p className="text-3xl font-bold text-cream">{analysis.confidence}%</p>
-                    
-                  </div>
-                </div>
-                <div className="mt-4 h-2 rounded-full bg-white/10">
-                  <div className="h-full rounded-full bg-gradient-to-r from-leaf-400 to-brand-300" style={{ width: `${analysis.confidence}%` }} />
-                  <p className="mt-auto pt-4 text-sm text-slate-400"> Confidence score is the AI's certainty in identifying the plant correctly. </p>
-                </div>
-              </div>
-              <HealthScoreGauge score={analysis.healthScore} />
-            </div>
-          </DashboardCard>
+  <div className="grid gap-5 items-stretch sm:grid-cols-2">
+    <div className="rounded-3xl border border-white/10 bg-white/5 p-5 flex flex-col h-full">
+      <div className="flex items-center gap-3">
+        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-leaf-400/15 text-leaf-200">
+          <BadgeCheck className="h-5 w-5" />
+        </div>
+
+        <div>
+          <p className="text-sm text-slate-400">Confidence score</p>
+          <p className="text-3xl font-bold text-cream">
+            {analysis.confidence}%
+          </p>
+        </div>
+      </div>
+
+      {/* Progress Bar */}
+      <div className="mt-4 h-2 rounded-full bg-white/10">
+        <div
+          className="h-full rounded-full bg-gradient-to-r from-leaf-400 to-brand-300"
+          style={{ width: `${analysis.confidence}%` }}
+        />
+      </div>
+
+      {/* Description */}
+      <p className="mt-auto pt-4 text-sm text-slate-400 leading-relaxed">
+        Confidence score is the AI's certainty in identifying the plant correctly.
+      </p>
+    </div>
+
+    <HealthScoreGauge score={analysis.healthScore} />
+  </div>
+</DashboardCard>
         </div>
       </div>
 
