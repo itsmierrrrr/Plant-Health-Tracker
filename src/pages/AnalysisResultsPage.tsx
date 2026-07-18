@@ -232,7 +232,7 @@ export function AnalysisResultsPage() {
                 </div>
                 <div className="mt-4 h-2 rounded-full bg-white/10">
                   <div className="h-full rounded-full bg-gradient-to-r from-leaf-400 to-brand-300" style={{ width: `${analysis.confidence}%` }} />
-                  <p className="mt-3 text-sm text-slate-400"> Confidence score is the AI's certainty in identifying the plant correctly. </p>
+                  <p className="mt-auto pt-4 text-sm text-slate-400"> Confidence score is the AI's certainty in identifying the plant correctly. </p>
                 </div>
               </div>
               <HealthScoreGauge score={analysis.healthScore} />
