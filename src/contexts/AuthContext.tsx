@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
-import { fetchCurrentUser, loginUser, logoutUser, registerUser } from '../services/authApi';
+import { fetchCurrentUser, loginUser, loginWithGoogle as loginWithGoogleUser, logoutUser, registerUser } from '../services/authApi';
 import { clearAuthToken, getAuthToken, setAuthToken } from '../services/authStorage';
-import type { AuthCredentials, AuthSession, AuthUser, RegisterCredentials } from '../types/auth';
+import type { AuthCredentials, AuthSession, AuthUser, GoogleAuthCredentials, RegisterCredentials } from '../types/auth';
 
 type AuthContextValue = {
   user: AuthUser | null;
@@ -9,6 +9,7 @@ type AuthContextValue = {
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (credentials: AuthCredentials) => Promise<AuthSession>;
+  loginWithGoogle: (credentials: GoogleAuthCredentials) => Promise<AuthSession>;
   register: (credentials: RegisterCredentials) => Promise<AuthSession>;
   logout: () => Promise<void>;
 };
@@ -70,6 +71,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return persistSession(session);
   }
 
+  async function loginWithGoogle(credentials: GoogleAuthCredentials) {
+    const session = await loginWithGoogleUser(credentials);
+    return persistSession(session);
+  }
+
   async function register(credentials: RegisterCredentials) {
     const session = await registerUser(credentials);
     return persistSession(session);
@@ -93,6 +99,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     isAuthenticated: Boolean(user && token),
     isLoading,
     login,
+    loginWithGoogle,
     register,
     logout,
   };

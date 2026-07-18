@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs';
+import { OAuth2Client } from 'google-auth-library';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/User.js';
 import { AppError } from '../utils/AppError.js';
@@ -25,6 +26,78 @@ function createToken(user) {
   return jwt.sign({ userId: user._id.toString(), email: user.email }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN || '7d',
   });
+}
+
+function getGoogleClient() {
+  if (!process.env.GOOGLE_CLIENT_ID) {
+    throw new AppError('Google auth is not configured', 500);
+  }
+
+  return new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+}
+
+async function findOrCreateGoogleUser(googlePayload) {
+  const googleId = googlePayload.sub;
+  const email = String(googlePayload.email || '').trim().toLowerCase();
+  const name = String(googlePayload.name || googlePayload.given_name || email.split('@')[0] || 'Google User').trim();
+
+  if (!googleId || !email) {
+    throw new AppError('Invalid Google account data', 401);
+  }
+
+  if (googlePayload.email_verified !== true) {
+    throw new AppError('Google email address is not verified', 401);
+  }
+
+  let user = await User.findOne({ googleId });
+
+  if (!user) {
+    user = await User.findOne({ email });
+  }
+
+  if (user) {
+    let shouldSave = false;
+
+    if (!user.googleId) {
+      user.googleId = googleId;
+      shouldSave = true;
+    }
+
+    if (!user.name || user.name.trim().length === 0) {
+      user.name = name;
+      shouldSave = true;
+    }
+
+    if (shouldSave) {
+      await user.save();
+    }
+
+    return user;
+  }
+
+  return User.create({
+    name,
+    email,
+    googleId,
+  });
+}
+
+async function getGoogleUserInfoFromAccessToken(accessToken) {
+  try {
+    const response = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new AppError('Unable to verify Google account', 401);
+    }
+
+    return response.json();
+  } catch {
+    throw new AppError('Unable to verify Google account', 401);
+  }
 }
 
 export const register = asyncHandler(async (request, response) => {
@@ -78,6 +151,43 @@ export const login = asyncHandler(async (request, response) => {
     throw new AppError('Invalid email or password', 401);
   }
 
+  const token = createToken(user);
+
+  return sendSuccess(response, 200, 'Logged in successfully', {
+    data: {
+      user: sanitizeUser(user),
+      token,
+    },
+  });
+});
+
+export const googleLogin = asyncHandler(async (request, response) => {
+  const credential = request.body?.credential || request.body?.idToken;
+  const accessToken = request.body?.accessToken;
+
+  if (!credential && !accessToken) {
+    throw new AppError('Google credential is required', 400);
+  }
+
+  let payload;
+
+  if (credential) {
+    const googleClient = getGoogleClient();
+    const ticket = await googleClient.verifyIdToken({
+      idToken: String(credential),
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    payload = ticket.getPayload();
+  } else {
+    payload = await getGoogleUserInfoFromAccessToken(String(accessToken));
+  }
+
+  if (!payload) {
+    throw new AppError('Unable to verify Google account', 401);
+  }
+
+  const user = await findOrCreateGoogleUser(payload);
   const token = createToken(user);
 
   return sendSuccess(response, 200, 'Logged in successfully', {

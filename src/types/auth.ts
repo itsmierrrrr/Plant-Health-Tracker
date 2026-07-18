@@ -17,6 +17,11 @@ export type AuthCredentials = {
   password: string;
 };
 
+export type GoogleAuthCredentials = {
+  credential?: string;
+  accessToken?: string;
+};
+
 export type RegisterCredentials = AuthCredentials & {
   name: string;
 };

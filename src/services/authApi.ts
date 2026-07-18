@@ -1,6 +1,6 @@
 import api from './api';
 import type { ApiResponse } from '../types/analysis';
-import type { AuthCredentials, AuthSession, AuthUser, RegisterCredentials } from '../types/auth';
+import type { AuthCredentials, AuthSession, AuthUser, GoogleAuthCredentials, RegisterCredentials } from '../types/auth';
 
 function normalizeAuthSession(payload: { token: string; user: AuthUser }) {
   return {
@@ -16,6 +16,11 @@ export async function registerUser(credentials: RegisterCredentials) {
 
 export async function loginUser(credentials: AuthCredentials) {
   const response = await api.post<ApiResponse<AuthSession>>('/api/auth/login', credentials);
+  return normalizeAuthSession(response.data.data);
+}
+
+export async function loginWithGoogle(credentials: GoogleAuthCredentials) {
+  const response = await api.post<ApiResponse<AuthSession>>('/api/auth/google', credentials);
   return normalizeAuthSession(response.data.data);
 }
 

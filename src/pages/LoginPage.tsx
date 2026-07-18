@@ -4,6 +4,7 @@ import { cn } from '../utils/cn';
 import { ArrowRight, Leaf, LogIn, Shield, Sparkles } from 'lucide-react';
 import { FormEvent, useEffect, useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { requestGoogleAccessToken } from '../services/googleIdentity';
 
 function getErrorMessage(error: unknown) {
   if (typeof error === 'object' && error && 'response' in error) {
@@ -19,13 +20,14 @@ function getErrorMessage(error: unknown) {
 }
 
 export function LoginPage() {
-  const { login, isAuthenticated, isLoading } = useAuth();
+  const { login, loginWithGoogle, isAuthenticated, isLoading } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
   const redirectTo = (location.state as { from?: { pathname?: string } } | null)?.from?.pathname || '/dashboard';
 
@@ -42,6 +44,27 @@ export function LoginPage() {
 
     try {
       const session = await login({ email, password });
+      const fallbackRedirect = session.user.isAdmin ? '/admin' : '/dashboard';
+      navigate(redirectTo === '/dashboard' ? fallbackRedirect : redirectTo, { replace: true });
+    } catch (authError) {
+      setError(getErrorMessage(authError));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleGoogleSignIn() {
+    if (!googleClientId) {
+      setError('Google sign-in is not configured yet.');
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const accessToken = await requestGoogleAccessToken(googleClientId);
+      const session = await loginWithGoogle({ accessToken });
       const fallbackRedirect = session.user.isAdmin ? '/admin' : '/dashboard';
       navigate(redirectTo === '/dashboard' ? fallbackRedirect : redirectTo, { replace: true });
     } catch (authError) {
@@ -95,6 +118,40 @@ export function LoginPage() {
             <h2 className="mt-3 text-3xl font-semibold text-cream">Log in</h2>
             <p className="mt-2 text-sm leading-6 text-slate-400">Use your account email and password to continue.</p>
           </div>
+
+          <div className="space-y-3">
+            <button
+              type="button"
+              onClick={handleGoogleSignIn}
+              disabled={loading}
+              className={cn(
+                'flex w-full items-center justify-center gap-3 rounded-full border border-white/15 bg-cream px-6 py-3.5 text-sm font-semibold text-slate-900 transition hover:-translate-y-0.5 hover:shadow-lift disabled:cursor-not-allowed disabled:opacity-60',
+                loading && 'translate-y-0',
+                !googleClientId && 'opacity-80'
+              )}
+            >
+              <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white">
+                <svg viewBox="0 0 48 48" className="h-5 w-5" aria-hidden="true">
+                  <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303C33.654 32.657 29.257 36 24 36c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.055 0 5.827 1.155 7.938 3.047l5.657-5.657C34.001 6.053 29.348 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.651-.389-3.917z" />
+                  <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.055 0 5.827 1.155 7.938 3.047l5.657-5.657C34.001 6.053 29.348 4 24 4c-7.682 0-14.354 4.338-17.694 10.691z" />
+                  <path fill="#4CAF50" d="M24 44c5.23 0 9.81-1.997 13.34-5.26l-6.16-5.206C29.29 35.091 26.818 36 24 36c-5.236 0-9.618-3.317-11.292-7.946l-6.52 5.025C9.476 39.556 16.227 44 24 44z" />
+                  <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-1.288 3.65-4.104 6.446-7.123 7.534l.002-.001 6.16 5.206C34.901 39.263 40 34 40 24c0-1.341-.138-2.651-.389-3.917z" />
+                </svg>
+              </span>
+              {loading ? 'Signing in...' : 'Continue with Google'}
+            </button>
+            <div className="flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-slate-500">
+              <span className="h-px flex-1 bg-white/10" />
+              or use email
+              <span className="h-px flex-1 bg-white/10" />
+            </div>
+          </div>
+
+          {!googleClientId ? (
+            <p className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-400">
+              Add VITE_GOOGLE_CLIENT_ID to enable Google sign-in.
+            </p>
+          ) : null}
 
           <label className="block space-y-2 text-sm text-slate-300">
             <span>Email</span>
