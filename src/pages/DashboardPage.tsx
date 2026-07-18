@@ -279,7 +279,7 @@ export function DashboardPage() {
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-leaf-200">Dashboard</p>
           <h1 className="font-display text-4xl font-semibold text-cream sm:text-5xl">Professional plant analytics dashboard.</h1>
           <p className="max-w-2xl text-lg leading-8 text-slate-300">
-            Track total analyses, average plant health, weekly and monthly activity, and your most scanned plants in a responsive SaaS-style analytics view.
+            Track total analyses, average plant health, weekly and monthly activity, and your most scanned plants in a responsive analytics view.
           </p>
         </div>
 
