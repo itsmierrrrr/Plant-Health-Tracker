@@ -69,7 +69,7 @@ export function Footer() {
   {/* Bottom Row */}
   <div className="border-t border-white/0">
     <div className="mx-auto max-w-7xl px-4 py-4 text-center text-sm text-slate-400 sm:px-6 lg:px-8">
-      © {new Date().getFullYear()} Plant Pulse. All rights reserved.
+      © {new Date().getFullYear()} Plant Pulse. © All rights reserved.
     </div>
   </div>
 </footer>
