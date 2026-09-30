@@ -467,7 +467,7 @@ uploads/
 ## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/plant-health-tracker.git
+git clone https://github.com/username/plant-health-tracker.git
 ```
 
 Navigate into the project:
