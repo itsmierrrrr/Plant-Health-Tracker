@@ -21,6 +21,7 @@ import { Bar, Doughnut, Line } from 'react-chartjs-2';
 import { Activity, BarChart3, BadgeCheck, CalendarDays, Droplets, Leaf, ShieldAlert, Sparkles, Sprout, SunMedium, ThermometerSun, TrendingUp, Wind } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BotanicalImage } from '../components/BotanicalImage';
 
 ChartJS.register(ArcElement, BarElement, CategoryScale, Filler, Legend, LineElement, LinearScale, PointElement, Tooltip);
 
@@ -127,7 +128,7 @@ function buildDoughnutData(analyses: DashboardAnalysis[]) {
     datasets: [
       {
         data: [healthy, monitor, attention],
-        backgroundColor: ['#5db06a', '#5b88b2', '#f5b942'],
+        backgroundColor: ['#347c70', '#e9b949', '#d97761'],
         borderWidth: 0,
       },
     ],
@@ -208,7 +209,7 @@ export function DashboardPage() {
       {
         label: 'Analyses',
         data: weeklyActivity.counts,
-        backgroundColor: '#5db06a',
+        backgroundColor: '#347c70',
         borderRadius: 14,
       },
     ],
@@ -220,8 +221,8 @@ export function DashboardPage() {
       {
         label: 'Monthly activity',
         data: monthlyActivity.counts,
-        borderColor: '#5b88b2',
-        backgroundColor: 'rgba(91, 136, 178, 0.24)',
+        borderColor: '#d97761',
+        backgroundColor: 'rgba(217, 119, 97, 0.16)',
         tension: 0.45,
         fill: true,
         pointRadius: 5,
@@ -245,11 +246,11 @@ export function DashboardPage() {
     scales: {
       x: {
         ticks: { color: '#94a3b8' },
-        grid: { color: 'rgba(255,255,255,0.06)' },
+        grid: { color: 'rgba(52,124,112,0.12)' },
       },
       y: {
         ticks: { color: '#94a3b8', precision: 0 },
-        grid: { color: 'rgba(255,255,255,0.06)' },
+        grid: { color: 'rgba(52,124,112,0.12)' },
       },
     },
   };
@@ -276,16 +277,23 @@ export function DashboardPage() {
     <PageContainer className="space-y-8 pb-16 pt-8">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div className="max-w-3xl space-y-4">
+          <BotanicalImage
+            alt="Sunlit botanical leaves"
+            label="Your plant pulse"
+            className="max-w-none"
+            aspectClassName="aspect-[3/1]"
+            src="https://images.unsplash.com/photo-1498814117408-e396f7d7e0e9?auto=format&fit=crop&w=900&q=85"
+          />
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-leaf-200">Dashboard</p>
-          <h1 className="font-display text-4xl font-semibold text-cream sm:text-5xl">Professional plant analytics dashboard.</h1>
+          <h1 className="max-w-2xl font-display text-5xl font-semibold leading-[1.05] text-cream sm:text-6xl">A little more life in every leaf.</h1>
           <p className="max-w-2xl text-lg leading-8 text-slate-300">
-            Track total analyses, average plant health, weekly and monthly activity, and your most scanned plants in a responsive analytics view.
+            A clear, calm view of your plant health, powered by thoughtful analysis and a little daily attention.
           </p>
         </div>
 
         <div className="inline-flex items-center gap-2 rounded-full border border-leaf-300/20 bg-leaf-400/10 px-4 py-2 text-sm font-medium text-leaf-100">
           <Activity className="h-4 w-4" />
-          Live backend analytics
+          Your living collection
         </div>
       </div>
 
