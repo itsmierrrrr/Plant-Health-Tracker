@@ -35,9 +35,9 @@ export function UploadZone({
     status === 'uploading' ? 'Uploading' : status === 'analyzing' ? 'Analyzing' : status === 'complete' ? 'Complete' : 'Idle';
 
   return (
-    <section className={cn('rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-soft backdrop-blur-xl transition duration-300', isDragActive && 'border-leaf-400/40 bg-leaf-400/10', className)}>
+    <section className={cn('rounded-[2rem] border border-[#dfe5d9] bg-[#fffdf7] p-6 shadow-soft transition duration-300', isDragActive && 'border-leaf-400/40 bg-leaf-400/10', className)}>
       <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
-        <div className="rounded-[1.75rem] border border-white/10 bg-slate-950/65 p-7 text-center">
+        <div className="rounded-[1.75rem] border border-[#dfe5d9] bg-[#f5f1e7] p-7 text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-3xl bg-gradient-to-br from-leaf-400/20 to-brand-400/20 text-leaf-200 ring-1 ring-inset ring-white/10">
             <ImagePlus className="h-8 w-8" />
           </div>
@@ -54,7 +54,7 @@ export function UploadZone({
             <button
               type="button"
               onClick={onBrowse}
-              className="inline-flex items-center gap-2 rounded-full bg-cream px-5 py-3 text-sm font-semibold text-brand-900 transition duration-300 hover:-translate-y-0.5 hover:shadow-lift"
+              className="meadow-button inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold"
             >
               <ArrowUpFromLine className="h-4 w-4" />
               Browse image
@@ -63,7 +63,7 @@ export function UploadZone({
               type="button"
               onClick={onPrimaryAction}
               disabled={isPrimaryActionDisabled}
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-cream transition duration-300 hover:border-leaf-400/30 hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
+              className="meadow-button-secondary inline-flex items-center gap-2 rounded-full border px-5 py-3 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-50"
             >
               <Sparkles className="h-4 w-4 text-leaf-300" />
               {primaryActionLabel}

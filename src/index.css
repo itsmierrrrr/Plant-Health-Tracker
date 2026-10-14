@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
   font-family: 'Manrope', system-ui, sans-serif;
-  background: #07101b;
+  background: #f8f3e8;
 }
 
 html {
@@ -17,10 +17,10 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(91, 136, 178, 0.18), transparent 32%),
-    radial-gradient(circle at 80% 0%, rgba(61, 140, 75, 0.14), transparent 28%),
-    #07101b;
-  color: #fbf9e4;
+    radial-gradient(circle at 12% 0%, rgba(233, 185, 73, 0.14), transparent 25rem),
+    radial-gradient(circle at 90% 10%, rgba(52, 124, 112, 0.12), transparent 28rem),
+    #f8f3e8;
+  color: #20312f;
 }
 
 * {
@@ -33,12 +33,220 @@ img {
 }
 
 ::selection {
-  background: rgba(91, 136, 178, 0.4);
-  color: #fbf9e4;
+  background: rgba(52, 124, 112, 0.22);
+  color: #20312f;
 }
 
 @layer components {
   .glass-panel {
-    @apply rounded-3xl border border-white/10 bg-white/5 shadow-soft backdrop-blur;
+    @apply rounded-3xl border border-[#dfe5d9] bg-[#fffdf7] shadow-soft;
+  }
+
+  .meadow-card {
+    @apply border border-[#dfe5d9] bg-[#fffdf7] shadow-soft;
+    transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+  }
+
+  .meadow-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(52, 124, 112, 0.35);
+    box-shadow: 0 24px 60px rgba(32, 49, 47, 0.12);
+  }
+
+  .float-gently {
+    animation: float-gently 6s ease-in-out infinite;
+  }
+
+  .float-gently-slow {
+    animation: float-gently 8s ease-in-out 1s infinite;
+  }
+
+  .reveal-up {
+    animation: reveal-up 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .meadow-button,
+  .meadow-button-secondary {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    transform: translateZ(0);
+    transition: transform 220ms ease, box-shadow 220ms ease, background-color 220ms ease, border-color 220ms ease;
+  }
+
+  .meadow-button::after,
+  .meadow-button-secondary::after {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    content: '';
+    background: linear-gradient(115deg, transparent 25%, rgba(255, 255, 255, 0.28) 48%, transparent 70%);
+    opacity: 0.45;
+    pointer-events: none;
+    transform: translateX(-120%);
+    transition: transform 500ms ease;
+  }
+
+  .meadow-button > *,
+  .meadow-button-secondary > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .meadow-button:hover,
+  .meadow-button-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(32, 49, 47, 0.14);
+  }
+
+  .meadow-button:hover::after,
+  .meadow-button-secondary:hover::after {
+    transform: translateX(120%);
+  }
+
+  .meadow-button:active,
+  .meadow-button-secondary:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .meadow-button {
+    background: #347c70 !important;
+    color: #fffdf7 !important;
+  }
+
+  .meadow-button-secondary {
+    border-color: #b5ddd3 !important;
+    background: #eef8f5 !important;
+    color: #21564e !important;
+  }
+
+  .footer-icon-link {
+    display: inline-flex;
+    height: 2.5rem;
+    width: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dfe5d9;
+    border-radius: 9999px;
+    color: #347c70;
+    background: #eef8f5;
+    transition: transform 220ms ease, color 220ms ease, background-color 220ms ease, box-shadow 220ms ease;
+  }
+
+  .footer-icon-link:hover {
+    transform: translateY(-3px) rotate(-4deg);
+    color: #fffdf7;
+    background: #347c70;
+    box-shadow: 0 10px 20px rgba(52, 124, 112, 0.2);
+  }
+}
+
+@keyframes float-gently {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-2deg); }
+  50% { transform: translate3d(0, -10px, 0) rotate(2deg); }
+}
+
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Meadowlark theme bridge for existing page utility classes. */
+[class*='bg-slate-950'] {
+  background-color: #fffdf7 !important;
+}
+
+[class~='bg-white/5'],
+[class~='bg-white/[0.03]'] {
+  background-color: #f5f1e7 !important;
+}
+
+[class*='border-white/'] {
+  border-color: #dfe5d9 !important;
+}
+
+[class~='text-cream'] {
+  color: #20312f !important;
+}
+
+[class~='text-slate-300'] {
+  color: #526460 !important;
+}
+
+[class~='text-slate-400'] {
+  color: #708079 !important;
+}
+
+[class~='text-slate-500'] {
+  color: #8a9890 !important;
+}
+
+[class*='text-leaf-100'],
+[class*='text-leaf-200'],
+[class*='text-leaf-300'] {
+  color: #347c70 !important;
+}
+
+[class*='bg-leaf-400/'] {
+  background-color: rgba(52, 124, 112, 0.11) !important;
+}
+
+[class*='bg-brand-400/'] {
+  background-color: rgba(52, 124, 112, 0.11) !important;
+}
+
+[class*='border-leaf-'] {
+  border-color: rgba(52, 124, 112, 0.3) !important;
+}
+
+/* Keep status and alert text readable on the light theme equivalents. */
+[class*='bg-amber-400/'] {
+  background-color: #fff3d4 !important;
+}
+
+[class*='text-amber-100'],
+[class*='text-amber-200'] {
+  color: #7a5200 !important;
+}
+
+[class*='bg-brand-400/15'] {
+  background-color: #eef8f5 !important;
+}
+
+[class*='text-brand-200'] {
+  color: #21564e !important;
+}
+
+[class*='bg-leaf-400/15'] {
+  background-color: #e8f3ef !important;
+}
+
+[class*='text-leaf-200'],
+[class*='text-leaf-300'] {
+  color: #28685e !important;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(217, 119, 97, 0.55);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .float-gently,
+  .float-gently-slow,
+  .reveal-up {
+    animation: none !important;
   }
 }

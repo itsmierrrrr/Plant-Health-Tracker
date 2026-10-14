@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { ChangeEvent, DragEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BotanicalImage } from '../components/BotanicalImage';
 
 type UploadStatus = 'idle' | 'uploading' | 'analyzing' | 'complete';
 
@@ -190,6 +191,13 @@ export function UploadPlantPage() {
     <PageContainer className="space-y-8 pb-16 pt-8 sm:space-y-10">
       <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr] xl:items-end">
         <div className="space-y-4">
+          <BotanicalImage
+            alt="Close view of a healthy leaf"
+            label="Start with a leaf"
+            className="max-w-none"
+            aspectClassName="aspect-[3/1]"
+            src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=900&q=85"
+          />
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-leaf-200">Upload plant</p>
           <h1 className="max-w-3xl font-display text-4xl font-semibold leading-tight text-cream sm:text-5xl lg:text-6xl">
             Connect the upload flow to live backend analysis.

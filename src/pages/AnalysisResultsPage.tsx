@@ -7,6 +7,7 @@ import type { PlantAnalysisRecord } from '../types/analysis';
 import { ArrowLeft, BadgeCheck, CalendarDays, Droplets, Leaf, ShieldAlert, Sparkles, SunMedium, ThermometerSun, TriangleAlert, Wind } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { BotanicalImage } from '../components/BotanicalImage';
 
 type ResultsLocationState = {
   analysis?: PlantAnalysisRecord;
@@ -155,6 +156,13 @@ export function AnalysisResultsPage() {
     <PageContainer className="space-y-8 pb-16 pt-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="space-y-3">
+          <BotanicalImage
+            alt="Softly lit plant leaves"
+            label="Insight, made visible"
+            className="max-w-none"
+            aspectClassName="aspect-[3/1]"
+            src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=900&q=85"
+          />
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-leaf-200">Analysis results</p>
           <h1 className="font-display text-4xl font-semibold text-cream sm:text-5xl">Backend analysis completed successfully.</h1>
           <p className="max-w-2xl text-lg leading-8 text-slate-300">
@@ -166,7 +174,7 @@ export function AnalysisResultsPage() {
           <button
             type="button"
             onClick={() => navigate('/upload')}
-            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-cream transition hover:border-leaf-400/30 hover:bg-white/10"
+            className="meadow-button-secondary inline-flex items-center gap-2 rounded-full border px-5 py-3 text-sm font-semibold"
           >
             <ArrowLeft className="h-4 w-4" />
             Analyze another plant
@@ -177,7 +185,7 @@ export function AnalysisResultsPage() {
               clearLatestAnalysis();
               navigate('/history');
             }}
-            className="inline-flex items-center gap-2 rounded-full bg-cream px-5 py-3 text-sm font-semibold text-brand-900 transition hover:-translate-y-0.5 hover:shadow-lift"
+            className="meadow-button inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold"
           >
             View history
           </button>

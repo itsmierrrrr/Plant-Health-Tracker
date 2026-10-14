@@ -22,7 +22,7 @@ export function EmptyState({ icon: Icon, title, description, actionLabel, classN
         <button
           type="button"
           {...buttonProps}
-          className="mt-6 inline-flex items-center justify-center rounded-full bg-cream px-5 py-3 text-sm font-semibold text-brand-900 transition hover:scale-[1.02]"
+          className="meadow-button mt-6 inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold"
         >
           {actionLabel}
         </button>

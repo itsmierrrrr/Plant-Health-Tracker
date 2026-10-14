@@ -8,6 +8,7 @@ import { cn } from '../utils/cn';
 import { BadgeCheck, CalendarDays, Droplets, Filter, Image as ImageIcon, Search, ShieldAlert, Sprout, SunMedium, ThermometerSun, Wind } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BotanicalImage } from '../components/BotanicalImage';
 
 function getStatusLabel(healthScore: number) {
   if (healthScore >= 85) {
@@ -150,6 +151,13 @@ export function HistoryPage() {
   return (
     <PageContainer className="space-y-8 pb-16 pt-8">
       <div className="max-w-3xl space-y-4">
+        <BotanicalImage
+          alt="Green leaves layered in natural light"
+          label="Your growing story"
+          className="max-w-none"
+          aspectClassName="aspect-[3/1]"
+          src="https://images.unsplash.com/photo-1444392061186-9fc38f7f3d88?auto=format&fit=crop&w=900&q=85"
+        />
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-leaf-200">History</p>
         <h1 className="font-display text-4xl font-semibold text-cream sm:text-5xl">Browse your plant results history.</h1>
         <p className="max-w-2xl text-lg leading-8 text-slate-300">
