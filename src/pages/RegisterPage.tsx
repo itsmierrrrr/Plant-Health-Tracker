@@ -5,6 +5,7 @@ import { ArrowRight, Leaf, Shield, Sparkles, UserPlus } from 'lucide-react';
 import { FormEvent, useEffect, useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { requestGoogleAccessToken } from '../services/googleIdentity';
+import { BotanicalImage } from '../components/BotanicalImage';
 
 function getErrorMessage(error: unknown) {
   if (typeof error === 'object' && error && 'response' in error) {
@@ -78,8 +79,8 @@ export function RegisterPage() {
   }
 
   return (
-    <PageContainer className="grid min-h-[calc(100vh-8rem)] items-center py-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
-      <div className="rounded-[2rem] border border-white/10 bg-slate-950/80 p-6 shadow-soft sm:p-8">
+    <PageContainer className="grid min-h-[calc(100vh-8rem)] items-stretch py-10 lg:grid-cols-2 lg:gap-10">
+      <div className="h-full rounded-[2rem] border border-white/10 bg-slate-950/80 p-6 shadow-soft sm:p-8">
         <form className="space-y-5" onSubmit={handleSubmit}>
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-leaf-200">Create account</p>
@@ -93,7 +94,7 @@ export function RegisterPage() {
               onClick={handleGoogleSignIn}
               disabled={loading}
               className={cn(
-                'flex w-full items-center justify-center gap-3 rounded-full border border-white/15 bg-cream px-6 py-3.5 text-sm font-semibold text-slate-900 transition hover:-translate-y-0.5 hover:shadow-lift disabled:cursor-not-allowed disabled:opacity-60',
+                'meadow-button-secondary flex w-full items-center justify-center gap-3 rounded-full border px-6 py-3.5 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-60',
                 loading && 'translate-y-0',
                 !googleClientId && 'opacity-80'
               )}
@@ -165,7 +166,7 @@ export function RegisterPage() {
             type="submit"
             disabled={loading}
             className={cn(
-              'inline-flex w-full items-center justify-center gap-2 rounded-full bg-cream px-6 py-3.5 text-sm font-semibold text-brand-900 transition hover:-translate-y-0.5 hover:shadow-lift disabled:cursor-not-allowed disabled:opacity-60',
+              'meadow-button inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-60',
               loading && 'translate-y-0'
             )}
           >
@@ -182,18 +183,26 @@ export function RegisterPage() {
         </form>
       </div>
 
-      <div className="space-y-6">
-        <div className="inline-flex items-center gap-2 rounded-full border border-leaf-300/20 bg-leaf-400/10 px-4 py-2 text-sm font-medium text-leaf-100">
+      <div className="flex h-full flex-col rounded-[2rem] border border-[#dfe5d9] bg-[#fffdf7] p-3 shadow-soft">
+        <BotanicalImage
+          alt="Tropical leaves with soft morning light"
+          label="Grow with confidence"
+          className="border-0 p-0 shadow-none"
+          aspectClassName="aspect-[4/3]"
+          src="https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=1100&q=85"
+        />
+        <div className="space-y-6 px-3 pb-3 pt-6">
+          <div className="inline-flex items-center gap-2 rounded-full border border-leaf-300/20 bg-leaf-400/10 px-4 py-2 text-sm font-medium text-leaf-100">
           <UserPlus className="h-4 w-4" />
           Private data workspace
-        </div>
+          </div>
         <h2 className="max-w-2xl font-display text-4xl font-semibold leading-tight text-cream sm:text-5xl">
           Each user gets their own analysis archive and dashboard metrics.
         </h2>
         <p className="max-w-2xl text-lg leading-8 text-slate-300">
           The backend stores a `userId` on every plant analysis, and the frontend only displays the signed-in user’s data.
         </p>
-        <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-3">
           {[
             { title: 'Bcrypt', copy: 'Passwords are hashed before storage.', icon: Shield },
             { title: 'JWT', copy: 'Signed tokens protect the API.', icon: Sparkles },
@@ -210,6 +219,7 @@ export function RegisterPage() {
               </div>
             );
           })}
+          </div>
         </div>
       </div>
     </PageContainer>
