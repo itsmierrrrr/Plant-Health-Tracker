@@ -20,6 +20,10 @@ export function BotanicalImage({ alt, aspectClassName = 'aspect-[3/1]', classNam
         <img
           src={src}
           alt={alt}
+          onError={(event) => {
+            event.currentTarget.onerror = null;
+            event.currentTarget.src = '/plant.png';
+          }}
           className={cn('h-full w-full object-cover object-center transition duration-700 ease-out group-hover:scale-105', imageClassName)}
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#173a36]/65 via-transparent to-transparent" />
