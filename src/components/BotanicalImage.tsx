@@ -1,10 +1,12 @@
 import { cn } from '../utils/cn';
+import { useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 
 type BotanicalImageProps = {
   alt: string;
   aspectClassName?: string;
   className?: string;
   fill?: boolean;
+  draggable?: boolean;
   imageClassName?: string;
   label?: string;
   src?: string;
@@ -13,13 +15,55 @@ type BotanicalImageProps = {
 const defaultImage =
   'https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1100&q=85';
 
-export function BotanicalImage({ alt, aspectClassName = 'aspect-[3/1]', className, fill = false, imageClassName, label, src = defaultImage }: BotanicalImageProps) {
+export function BotanicalImage({ alt, aspectClassName = 'aspect-[3/1]', className, draggable = false, fill = false, imageClassName, label, src = defaultImage }: BotanicalImageProps) {
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const dragStart = useRef({ x: 0, y: 0 });
+
+  const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (!draggable || event.button !== 0) {
+      return;
+    }
+
+    dragStart.current = { x: event.clientX, y: event.clientY };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (!draggable || !event.currentTarget.hasPointerCapture(event.pointerId)) {
+      return;
+    }
+
+    setDragOffset({
+      x: event.clientX - dragStart.current.x,
+      y: event.clientY - dragStart.current.y,
+    });
+  };
+
+  const resetDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (!draggable) {
+      return;
+    }
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    setDragOffset({ x: 0, y: 0 });
+  };
+
   return (
-    <div className={cn('group relative w-full overflow-hidden rounded-[2rem] border border-[#dfe5d9] bg-[#fffdf7] p-2 shadow-soft', fill && 'h-full', className)}>
+    <div
+      className={cn('group relative w-full overflow-hidden rounded-[2rem] border border-[#dfe5d9] bg-[#fffdf7] p-2 shadow-soft', draggable && 'cursor-grab touch-none select-none active:cursor-grabbing', fill && 'h-full', className)}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={resetDrag}
+      onPointerCancel={resetDrag}
+      style={{ transform: `translate3d(${dragOffset.x}px, ${dragOffset.y}px, 0)` }}
+    >
       <div className={cn('relative w-full overflow-hidden rounded-[1.5rem]', fill ? 'h-full' : aspectClassName)}>
         <img
           src={src}
           alt={alt}
+          draggable={false}
           onError={(event) => {
             event.currentTarget.onerror = null;
             event.currentTarget.src = '/plant.png';
