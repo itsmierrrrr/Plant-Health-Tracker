@@ -1,4 +1,5 @@
 import { FeatureCard } from '../components/FeatureCard';
+import { BotanicalImage } from '../components/BotanicalImage';
 import { PageContainer } from '../components/PageContainer';
 import { StatisticCard } from '../components/StatisticCard';
 import { featuredPlantCards, features, statistics } from '../data/mockData';
@@ -51,8 +52,12 @@ export function HomePage() {
             <div className="relative overflow-hidden rounded-[2.5rem] border border-[#dfe5d9] bg-[#fffdf7] p-3 shadow-soft">
               <div className="relative h-[28rem] overflow-hidden rounded-[2rem] sm:h-[34rem]">
                 <img
-                  src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=1100&q=85"
-                  alt="Sunlit monstera leaves"
+                  src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1200&q=90"
+                  alt="Lush green leaves glowing in soft natural light"
+                  onError={(event) => {
+                    event.currentTarget.onerror = null;
+                    event.currentTarget.src = '/plant.png';
+                  }}
                   className="h-full w-full object-cover transition duration-700 hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#173a36]/80 via-transparent to-transparent" />
@@ -83,6 +88,42 @@ export function HomePage() {
                   );
                 })}
               </div>
+            </div>
+          </div>
+        </PageContainer>
+      </section>
+
+      <section>
+        <PageContainer>
+          <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div className="max-w-2xl space-y-3">
+              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-leaf-200">A closer look</p>
+              <h2 className="text-3xl font-semibold text-cream sm:text-4xl">Small observations lead to healthier plants.</h2>
+            </div>
+            <p className="max-w-sm text-sm leading-6 text-slate-400">
+              Spot the details, understand the signals, and make every corner of your home feel a little greener.
+            </p>
+          </div>
+          <div className="rounded-[2.5rem] border border-[#dfe5d9] bg-[#fffdf7] p-3 shadow-soft sm:p-4">
+            <div className="grid gap-4 md:grid-cols-3">
+            <BotanicalImage
+              alt="Fiddle leaf fig standing in a sunlit room"
+              aspectClassName="aspect-[4/5]"
+              label="Observe"
+              src="https://images.unsplash.com/photo-1503149779833-1de50ebe5f8a?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D"
+            />
+            <BotanicalImage
+              alt="Monstera plant with dramatic split leaves"
+              aspectClassName="aspect-[4/5]"
+              label="Understand"
+              src="https://images.unsplash.com/photo-1601985705806-5b9a71f6004f?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D"
+            />
+            <BotanicalImage
+              alt="Trailing plant cascading from a ceramic planter"
+              aspectClassName="aspect-[4/5]"
+              label="Flourish"
+              src="https://plus.unsplash.com/premium_photo-1674237276501-595398f90f87?q=80&w=723&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D"
+            />
             </div>
           </div>
         </PageContainer>
