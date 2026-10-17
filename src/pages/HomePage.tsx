@@ -131,6 +131,59 @@ export function HomePage() {
 
       <section>
         <PageContainer>
+          <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div className="max-w-2xl space-y-3">
+              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-leaf-200">Bring nature home</p>
+              <h2 className="text-3xl font-semibold text-cream sm:text-4xl">A calmer space starts with a little green.</h2>
+            </div>
+            <p className="max-w-sm text-sm leading-6 text-slate-400">
+              Build a care ritual that feels as good as your plants look, from the first sprout to every new leaf.
+            </p>
+          </div>
+          <div className="overflow-hidden rounded-[2.75rem] bg-[#20312f] p-3 shadow-[0_24px_70px_rgba(32,49,47,0.18)] sm:p-4">
+            <div className="grid gap-4 lg:grid-cols-12 lg:items-stretch">
+            <BotanicalImage
+              alt="Tropical leaves catching warm sunlight"
+              aspectClassName="aspect-[4/5] lg:aspect-auto"
+              className="rounded-[2rem] border-[#e9b949]/30 bg-[#284842] p-1 shadow-none lg:col-span-5"
+              draggable
+              fill
+              label="Breathe"
+              src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=900&q=85"
+            />
+            <div className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
+              <BotanicalImage
+                alt="Small houseplant in a bright minimalist interior"
+                aspectClassName="aspect-[4/5]"
+                className="rounded-[2rem] border-[#e9b949]/30 bg-[#284842] p-1 shadow-none"
+                draggable
+                label="Ground"
+                src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=900&q=85"
+              />
+              <BotanicalImage
+                alt="Calathea leaves with soft patterned details"
+                aspectClassName="aspect-[4/5]"
+                className="rounded-[2rem] border-[#e9b949]/30 bg-[#284842] p-1 shadow-none"
+                draggable
+                label="Notice"
+                src="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=900&q=85"
+              />
+              <BotanicalImage
+                alt="Lush plant leaves beside a sunlit window"
+                aspectClassName="aspect-[10/4]"
+                className="rounded-[2rem] border-[#e9b949]/30 bg-[#284842] p-1 shadow-none sm:col-span-2"
+                draggable
+                label="Grow"
+                src="https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=1200&q=85"
+              />
+            </div>
+            </div>
+          </div>
+        </PageContainer>
+      </section>
+
+      <section>
+        <PageContainer>
           <div className="mb-8 flex flex-col gap-3">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-leaf-200">Features</p>
             <h2 className="text-3xl font-semibold text-cream sm:text-4xl">Everything feels polished from the first click.</h2>
