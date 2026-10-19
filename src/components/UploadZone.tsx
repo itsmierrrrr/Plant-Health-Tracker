@@ -50,7 +50,7 @@ export function UploadZone({
               Add a crisp plant image to preview the upload experience, progress states, and analysis flow used across the app.
             </p>
           </div>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-6 flex flex-col items-center justify-center gap-3">
             <button
               type="button"
               onClick={onBrowse}
@@ -63,7 +63,7 @@ export function UploadZone({
               type="button"
               onClick={onPrimaryAction}
               disabled={isPrimaryActionDisabled}
-              className="meadow-button-secondary inline-flex items-center gap-2 rounded-full border px-5 py-3 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-50"
+              className="meadow-button-secondary inline-flex min-w-56 items-center justify-center gap-2 rounded-full border px-8 py-4 text-base font-semibold disabled:cursor-not-allowed disabled:opacity-50"
             >
               <Sparkles className="h-4 w-4 text-leaf-300" />
               {primaryActionLabel}
