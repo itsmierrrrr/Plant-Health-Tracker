@@ -282,7 +282,7 @@ export function DashboardPage() {
             label="Your plant pulse"
             className="max-w-none"
             aspectClassName="aspect-[3/1]"
-            src="https://images.unsplash.com/photo-1498814117408-e396f7d7e0e9?auto=format&fit=crop&w=900&q=85"
+            src="/plant.png"
           />
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-leaf-200">Dashboard</p>
           <h1 className="max-w-2xl font-display text-5xl font-semibold leading-[1.05] text-cream sm:text-6xl">A little more life in every leaf.</h1>
@@ -439,7 +439,15 @@ export function DashboardPage() {
           {selectedAnalysis ? (
             <div className="space-y-5">
               <div className="overflow-hidden rounded-3xl border border-white/10 bg-slate-950">
-                <img src={selectedAnalysis.imageUrl} alt={selectedAnalysis.commonName} className="h-64 w-full object-cover" />
+                <img
+                  src={selectedAnalysis.imageUrl}
+                  alt={selectedAnalysis.commonName}
+                  onError={(event) => {
+                    event.currentTarget.onerror = null;
+                    event.currentTarget.src = '/plant.png';
+                  }}
+                  className="h-64 w-full object-cover"
+                />
               </div>
 
               <div className="space-y-3">
