@@ -156,7 +156,7 @@ export function HistoryPage() {
           label="Your growing story"
           className="max-w-none"
           aspectClassName="aspect-[3/1]"
-          src="https://images.unsplash.com/photo-1444392061186-9fc38f7f3d88?auto=format&fit=crop&w=900&q=85"
+          src="/plant.png"
         />
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-leaf-200">History</p>
         <h1 className="font-display text-4xl font-semibold text-cream sm:text-5xl">Browse your plant results history.</h1>
@@ -244,7 +244,15 @@ export function HistoryPage() {
                   )}
                 >
                   <div className="relative h-48 shrink-0 overflow-hidden">
-                    <img src={analysis.imageUrl} alt={analysis.commonName} className="h-full w-full object-cover transition duration-500 hover:scale-105" />
+                    <img
+                      src={analysis.imageUrl}
+                      alt={analysis.commonName}
+                      onError={(event) => {
+                        event.currentTarget.onerror = null;
+                        event.currentTarget.src = '/plant.png';
+                      }}
+                      className="h-full w-full object-cover transition duration-500 hover:scale-105"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/15 to-transparent" />
                     <span className={cn('absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em]', getStatusTone(analysis.healthScore))}>
                       {getStatusLabel(analysis.healthScore)}
@@ -288,7 +296,15 @@ export function HistoryPage() {
             {selectedAnalysis ? (
               <div className="space-y-5">
                 <div className="overflow-hidden rounded-3xl border border-white/10 bg-slate-950">
-                  <img src={selectedAnalysis.imageUrl} alt={selectedAnalysis.commonName} className="h-64 w-full object-cover" />
+                  <img
+                    src={selectedAnalysis.imageUrl}
+                    alt={selectedAnalysis.commonName}
+                    onError={(event) => {
+                      event.currentTarget.onerror = null;
+                      event.currentTarget.src = '/plant.png';
+                    }}
+                    className="h-64 w-full object-cover"
+                  />
                 </div>
 
                 <div className="space-y-3">
