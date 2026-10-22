@@ -79,14 +79,14 @@ export function AdminPage() {
           aspectClassName="aspect-[3/1]"
           src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=900&q=85"
         />
-        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-leaf-200">Admin Panel</p>
-        <h1 className="font-display text-4xl font-semibold text-cream sm:text-5xl">Plant Results</h1>
-        <p className="max-w-2xl text-lg leading-8 text-slate-300">
+        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#347c70]">Admin Panel</p>
+        <h1 className="font-display text-4xl font-semibold text-[#20312f] sm:text-5xl">Plant Results</h1>
+        <p className="max-w-2xl text-lg leading-8 text-[#526460]">
           View every registered user and their uploaded plant images in one private admin workspace.
         </p>
       </div>
 
-      {error ? <div className="rounded-3xl border border-amber-400/20 bg-amber-400/10 px-5 py-4 text-sm text-amber-100">{error}</div> : null}
+      {error ? <div className="rounded-3xl border border-amber-400/20 bg-[#fff3d4] px-5 py-4 text-sm text-[#7a5200]">{error}</div> : null}
 
       <section className="grid gap-5 md:grid-cols-3">
         {[
@@ -97,23 +97,23 @@ export function AdminPage() {
           const Icon = item.icon;
 
           return (
-            <div key={item.label} className="rounded-3xl border border-white/10 bg-slate-950/70 p-5 shadow-soft">
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-leaf-400/15 text-leaf-200">
+            <div key={item.label} className="rounded-3xl border border-[#dfe5d9] bg-[#fffdf7] p-5 shadow-soft">
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#e8f3ef] text-[#347c70]">
                 <Icon className="h-6 w-6" />
               </div>
-              <p className="mt-4 text-sm font-medium uppercase tracking-[0.2em] text-slate-400">{item.label}</p>
-              <p className="mt-2 text-3xl font-bold text-cream">{item.value}</p>
+              <p className="mt-4 text-sm font-medium uppercase tracking-[0.2em] text-[#708079]">{item.label}</p>
+              <p className="mt-2 text-3xl font-bold text-[#20312f]">{item.value}</p>
             </div>
           );
         })}
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[0.85fr_1.15fr]">
-        <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-soft">
+        <div className="rounded-3xl border border-[#dfe5d9] bg-[#fffdf7] p-6 shadow-soft">
           <div className="mb-5 flex items-center justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-semibold text-cream">Users</h2>
-              <p className="mt-1 text-sm text-slate-400">All registered accounts with analysis counts.</p>
+              <h2 className="text-2xl font-semibold text-[#20312f]">Users</h2>
+              <p className="mt-1 text-sm text-[#708079]">All registered accounts with analysis counts.</p>
             </div>
           </div>
 
@@ -126,13 +126,13 @@ export function AdminPage() {
               </>
             ) : users.length > 0 ? (
               users.map((user) => (
-                <div key={user.id} className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-slate-300">
+                <div key={user.id} className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] p-4 text-sm text-[#526460]">
                   <div className="flex items-center justify-between gap-3">
                     <div>
-                      <p className="font-semibold text-cream">{user.name}</p>
-                      <p className="text-slate-400">{user.email}</p>
+                      <p className="font-semibold text-[#20312f]">{user.name}</p>
+                      <p className="text-[#708079]">{user.email}</p>
                     </div>
-                    <span className="rounded-full bg-white/5 px-3 py-1 text-xs font-semibold text-cream">{user.analysisCount} results</span>
+                    <span className="rounded-full bg-[#f5f1e7] px-3 py-1 text-xs font-semibold text-[#20312f]">{user.analysisCount} results</span>
                   </div>
                 </div>
               ))
@@ -146,11 +146,11 @@ export function AdminPage() {
           </div>
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-soft">
+        <div className="rounded-3xl border border-[#dfe5d9] bg-[#fffdf7] p-6 shadow-soft">
           <div className="mb-5 flex items-center justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-semibold text-cream">Plant results</h2>
-              <p className="mt-1 text-sm text-slate-400">Uploaded images and normalized analysis details.</p>
+              <h2 className="text-2xl font-semibold text-[#20312f]">Plant results</h2>
+              <p className="mt-1 text-sm text-[#708079]">Uploaded images and normalized analysis details.</p>
             </div>
           </div>
 
@@ -162,32 +162,32 @@ export function AdminPage() {
               </>
             ) : analyses.length > 0 ? (
               analyses.map((analysis) => (
-                <article key={analysis.id} className="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+                <article key={analysis.id} className="overflow-hidden rounded-3xl border border-[#dfe5d9] bg-[#f5f1e7]">
                   <div className="grid gap-4 p-4 md:grid-cols-[160px_1fr]">
-                    <div className="h-40 overflow-hidden rounded-2xl bg-slate-900">
+                    <div className="h-40 overflow-hidden rounded-2xl bg-[#20312f]">
                       <img src={analysis.imageUrl} alt={analysis.commonName} className="h-full w-full object-cover" />
                     </div>
 
                     <div className="space-y-3">
                       <div className="flex flex-wrap items-start justify-between gap-3">
                         <div>
-                          <p className="text-lg font-semibold text-cream">{analysis.commonName}</p>
-                          <p className="text-sm text-slate-400">{analysis.scientificName}</p>
+                          <p className="text-lg font-semibold text-[#20312f]">{analysis.commonName}</p>
+                          <p className="text-sm text-[#708079]">{analysis.scientificName}</p>
                         </div>
-                        <span className={cn('rounded-full px-3 py-1 text-xs font-semibold', analysis.healthScore >= 85 ? 'bg-leaf-400/15 text-leaf-200' : analysis.healthScore >= 65 ? 'bg-brand-400/15 text-brand-200' : 'bg-amber-400/15 text-amber-200')}>
+                        <span className={cn('rounded-full px-3 py-1 text-xs font-semibold', analysis.healthScore >= 85 ? 'bg-[#e8f3ef] text-[#347c70]' : analysis.healthScore >= 65 ? 'bg-[#eef8f5] text-brand-200' : 'bg-amber-400/15 text-amber-200')}>
                           {getHealthLabel(analysis.healthScore)}
                         </span>
                       </div>
 
-                      <div className="grid gap-2 text-sm text-slate-300 sm:grid-cols-2">
-                        <p><span className="text-slate-500">Owner:</span> {analysis.user?.name || 'Unknown'}</p>
-                        <p><span className="text-slate-500">Email:</span> {analysis.user?.email || 'Unknown'}</p>
-                        <p><span className="text-slate-500">Confidence:</span> {analysis.confidence}%</p>
-                        <p><span className="text-slate-500">Health:</span> {analysis.healthScore}%</p>
+                      <div className="grid gap-2 text-sm text-[#526460] sm:grid-cols-2">
+                        <p><span className="text-[#8a9890]">Owner:</span> {analysis.user?.name || 'Unknown'}</p>
+                        <p><span className="text-[#8a9890]">Email:</span> {analysis.user?.email || 'Unknown'}</p>
+                        <p><span className="text-[#8a9890]">Confidence:</span> {analysis.confidence}%</p>
+                        <p><span className="text-[#8a9890]">Health:</span> {analysis.healthScore}%</p>
                       </div>
 
-                      <div className="text-sm text-slate-400">
-                        <p className="font-medium text-cream">Recommendations</p>
+                      <div className="text-sm text-[#708079]">
+                        <p className="font-medium text-[#20312f]">Recommendations</p>
                         <p className="mt-1 leading-6">{analysis.recommendations[0] || 'No recommendations available.'}</p>
                       </div>
                     </div>

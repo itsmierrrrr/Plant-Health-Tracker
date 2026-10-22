@@ -12,8 +12,8 @@ export function Footer() {
           </span>
 
           <div>
-            <h3 className="font-display text-lg font-semibold text-cream">Plant Pulse</h3>
-            <p className="text-sm text-slate-400">Smart care for every plant.</p>
+            <h3 className="font-display text-lg font-semibold text-[#20312f]">Plant Pulse</h3>
+            <p className="text-sm text-[#708079]">Smart care for every plant.</p>
           </div>
         </div>
 
@@ -45,7 +45,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-[#dfe5d9]">
-        <div className="mx-auto max-w-7xl px-4 py-4 text-center text-sm text-slate-400 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 py-4 text-center text-sm text-[#708079] sm:px-6 lg:px-8">
           © {new Date().getFullYear()} Plant Pulse. All rights reserved.
         </div>
       </div>

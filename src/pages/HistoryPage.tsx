@@ -24,11 +24,11 @@ function getStatusLabel(healthScore: number) {
 
 function getStatusTone(healthScore: number) {
   if (healthScore >= 85) {
-    return 'text-leaf-200 bg-leaf-400/15';
+    return 'text-[#347c70] bg-[#e8f3ef]';
   }
 
   if (healthScore >= 65) {
-    return 'text-brand-200 bg-brand-400/15';
+    return 'text-brand-200 bg-[#eef8f5]';
   }
 
   return 'text-amber-200 bg-amber-400/15';
@@ -158,9 +158,9 @@ export function HistoryPage() {
           aspectClassName="aspect-[3/1]"
           src="/plant.png"
         />
-        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-leaf-200">History</p>
-        <h1 className="font-display text-4xl font-semibold text-cream sm:text-5xl">Browse your plant results history.</h1>
-        <p className="max-w-2xl text-lg leading-8 text-slate-300">
+        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#347c70]">History</p>
+        <h1 className="font-display text-4xl font-semibold text-[#20312f] sm:text-5xl">Browse your plant results history.</h1>
+        <p className="max-w-2xl text-lg leading-8 text-[#526460]">
           This archive is scoped to your account, so you only see analyses that belong to the signed-in user.
         </p>
       </div>
@@ -175,33 +175,33 @@ export function HistoryPage() {
           const Icon = item.icon;
 
           return (
-            <div key={item.label} className="rounded-3xl border border-white/10 bg-slate-950/70 p-5 shadow-soft">
-              <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-leaf-400/15 text-leaf-200">
+            <div key={item.label} className="rounded-3xl border border-[#dfe5d9] bg-[#fffdf7] p-5 shadow-soft">
+              <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-[#e8f3ef] text-[#347c70]">
                 <Icon className="h-5 w-5" />
               </div>
-              <p className="mt-4 text-sm font-medium uppercase tracking-[0.2em] text-slate-400">{item.label}</p>
-              <p className="mt-2 text-3xl font-bold text-cream">{item.value}</p>
+              <p className="mt-4 text-sm font-medium uppercase tracking-[0.2em] text-[#708079]">{item.label}</p>
+              <p className="mt-2 text-3xl font-bold text-[#20312f]">{item.value}</p>
             </div>
           );
         })}
       </section>
 
       <div className="grid gap-4 lg:grid-cols-[1fr_220px]">
-        <label className="flex items-center gap-3 rounded-3xl border border-white/10 bg-slate-950/70 px-5 py-4 shadow-soft">
-          <Search className="h-5 w-5 text-slate-400" />
+        <label className="flex items-center gap-3 rounded-3xl border border-[#dfe5d9] bg-[#fffdf7] px-5 py-4 shadow-soft">
+          <Search className="h-5 w-5 text-[#708079]" />
           <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search by plant name, species, or status"
-            className="w-full bg-transparent text-sm text-cream outline-none placeholder:text-slate-500"
+            className="w-full bg-transparent text-sm text-[#20312f] outline-none placeholder:text-[#8a9890]"
           />
         </label>
-        <label className="flex items-center gap-3 rounded-3xl border border-white/10 bg-slate-950/70 px-5 py-4 shadow-soft">
-          <Filter className="h-5 w-5 text-slate-400" />
+        <label className="flex items-center gap-3 rounded-3xl border border-[#dfe5d9] bg-[#fffdf7] px-5 py-4 shadow-soft">
+          <Filter className="h-5 w-5 text-[#708079]" />
           <select
             value={filter}
             onChange={(event) => setFilter(event.target.value)}
-            className="w-full bg-transparent text-sm text-cream outline-none"
+            className="w-full bg-transparent text-sm text-[#20312f] outline-none"
           >
             <option value="all">All statuses</option>
             <option value="healthy">Healthy</option>
@@ -211,7 +211,7 @@ export function HistoryPage() {
         </label>
       </div>
 
-      {error ? <div className="rounded-3xl border border-amber-400/20 bg-amber-400/10 px-5 py-4 text-sm text-amber-100">{error}</div> : null}
+      {error ? <div className="rounded-3xl border border-amber-400/20 bg-[#fff3d4] px-5 py-4 text-sm text-[#7a5200]">{error}</div> : null}
 
       {loading ? (
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -239,8 +239,8 @@ export function HistoryPage() {
                   type="button"
                   onClick={() => setSelectedAnalysisId(analysis.id)}
                   className={cn(
-                    'flex h-full flex-col overflow-hidden rounded-3xl border bg-slate-950/70 text-left shadow-soft transition duration-300 hover:-translate-y-1 hover:border-leaf-400/30',
-                    isSelected ? 'border-leaf-400/50 ring-1 ring-leaf-400/30' : 'border-white/10'
+                    'flex h-full flex-col overflow-hidden rounded-3xl border bg-[#fffdf7] text-left shadow-soft transition duration-300 hover:-translate-y-1 hover:border-leaf-400/30',
+                    isSelected ? 'border-leaf-400/50 ring-1 ring-leaf-400/30' : 'border-[#dfe5d9]'
                   )}
                 >
                   <div className="relative h-48 shrink-0 overflow-hidden">
@@ -260,13 +260,13 @@ export function HistoryPage() {
                   </div>
                   <div className="flex flex-1 flex-col space-y-4 p-5">
                     <div>
-                      <h3 className="text-xl font-semibold text-cream">{analysis.commonName}</h3>
-                      <p className="mt-1 text-sm text-slate-400">{analysis.scientificName}</p>
+                      <h3 className="text-xl font-semibold text-[#20312f]">{analysis.commonName}</h3>
+                      <p className="mt-1 text-sm text-[#708079]">{analysis.scientificName}</p>
                     </div>
-                    <p className="line-clamp-2 min-h-[3rem] text-sm leading-6 text-slate-300">
+                    <p className="line-clamp-2 min-h-[3rem] text-sm leading-6 text-[#526460]">
                       {analysis.recommendations[0] || 'Private analysis stored for your account.'}
                     </p>
-                    <div className="grid grid-cols-2 gap-2 text-xs text-slate-300">
+                    <div className="grid grid-cols-2 gap-2 text-xs text-[#526460]">
                       {(() => {
                         const careInsights = analysis.careInsights ?? getFallbackCareInsights();
 
@@ -274,17 +274,17 @@ export function HistoryPage() {
                           { label: 'Water', value: careInsights.waterNeed },
                           { label: 'Sun', value: careInsights.sunlightNeed },
                         ].map((item) => (
-                          <div key={item.label} className="rounded-2xl border border-white/10 bg-white/5 px-3 py-2">
-                            <p className="uppercase tracking-[0.22em] text-slate-500">{item.label}</p>
-                            <p className="mt-1 font-medium text-cream">{item.value}</p>
+                          <div key={item.label} className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] px-3 py-2">
+                            <p className="uppercase tracking-[0.22em] text-[#8a9890]">{item.label}</p>
+                            <p className="mt-1 font-medium text-[#20312f]">{item.value}</p>
                           </div>
                         ));
                       })()}
                     </div>
-                    <div className="mt-auto flex flex-wrap gap-3 text-sm text-slate-300">
-                      <span className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1.5">{analysis.healthScore}% health</span>
-                      <span className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1.5">{analysis.confidence}% confidence</span>
-                      <span className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1.5">{new Date(analysis.createdAt).toLocaleDateString()}</span>
+                    <div className="mt-auto flex flex-wrap gap-3 text-sm text-[#526460]">
+                      <span className="inline-flex items-center gap-2 rounded-full bg-[#f5f1e7] px-3 py-1.5">{analysis.healthScore}% health</span>
+                      <span className="inline-flex items-center gap-2 rounded-full bg-[#f5f1e7] px-3 py-1.5">{analysis.confidence}% confidence</span>
+                      <span className="inline-flex items-center gap-2 rounded-full bg-[#f5f1e7] px-3 py-1.5">{new Date(analysis.createdAt).toLocaleDateString()}</span>
                     </div>
                   </div>
                 </button>
@@ -295,7 +295,7 @@ export function HistoryPage() {
           <DashboardCard title="Plant result details" className="xl:sticky xl:top-24">
             {selectedAnalysis ? (
               <div className="space-y-5">
-                <div className="overflow-hidden rounded-3xl border border-white/10 bg-slate-950">
+                <div className="overflow-hidden rounded-3xl border border-[#dfe5d9] bg-[#20312f]">
                   <img
                     src={selectedAnalysis.imageUrl}
                     alt={selectedAnalysis.commonName}
@@ -310,8 +310,8 @@ export function HistoryPage() {
                 <div className="space-y-3">
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
-                      <h3 className="text-2xl font-semibold text-cream">{selectedAnalysis.commonName}</h3>
-                      <p className="text-sm text-slate-400">{selectedAnalysis.scientificName}</p>
+                      <h3 className="text-2xl font-semibold text-[#20312f]">{selectedAnalysis.commonName}</h3>
+                      <p className="text-sm text-[#708079]">{selectedAnalysis.scientificName}</p>
                     </div>
                     <span className={cn('rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em]', getStatusTone(selectedAnalysis.healthScore))}>
                       {getStatusLabel(selectedAnalysis.healthScore)}
@@ -319,39 +319,39 @@ export function HistoryPage() {
                   </div>
 
                   <div className="grid gap-3 sm:grid-cols-2">
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                      <p className="text-xs uppercase tracking-[0.22em] text-slate-500">Health score</p>
-                      <p className="mt-2 text-2xl font-bold text-cream">{selectedAnalysis.healthScore}%</p>
+                    <div className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] p-4">
+                      <p className="text-xs uppercase tracking-[0.22em] text-[#8a9890]">Health score</p>
+                      <p className="mt-2 text-2xl font-bold text-[#20312f]">{selectedAnalysis.healthScore}%</p>
                     </div>
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                      <p className="text-xs uppercase tracking-[0.22em] text-slate-500">Confidence</p>
-                      <p className="mt-2 text-2xl font-bold text-cream">{selectedAnalysis.confidence}%</p>
+                    <div className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] p-4">
+                      <p className="text-xs uppercase tracking-[0.22em] text-[#8a9890]">Confidence</p>
+                      <p className="mt-2 text-2xl font-bold text-[#20312f]">{selectedAnalysis.confidence}%</p>
                     </div>
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-4 sm:col-span-2">
-                      <p className="text-xs uppercase tracking-[0.22em] text-slate-500">Analyzed on</p>
-                      <p className="mt-2 text-sm font-medium text-cream">{new Date(selectedAnalysis.createdAt).toLocaleString()}</p>
+                    <div className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] p-4 sm:col-span-2">
+                      <p className="text-xs uppercase tracking-[0.22em] text-[#8a9890]">Analyzed on</p>
+                      <p className="mt-2 text-sm font-medium text-[#20312f]">{new Date(selectedAnalysis.createdAt).toLocaleString()}</p>
                     </div>
                   </div>
 
-                  <div className="space-y-3 rounded-3xl border border-white/10 bg-white/5 p-4">
-                    <p className="text-sm font-semibold text-cream">Recommendations</p>
+                  <div className="space-y-3 rounded-3xl border border-[#dfe5d9] bg-[#f5f1e7] p-4">
+                    <p className="text-sm font-semibold text-[#20312f]">Recommendations</p>
                     <div className="space-y-2">
                       {selectedAnalysis.recommendations.length > 0 ? (
                         selectedAnalysis.recommendations.map((recommendation) => (
-                          <div key={recommendation} className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-sm leading-6 text-slate-300">
+                          <div key={recommendation} className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] px-4 py-3 text-sm leading-6 text-[#526460]">
                             {recommendation}
                           </div>
                         ))
                       ) : (
-                        <p className="text-sm text-slate-400">No recommendations available.</p>
+                        <p className="text-sm text-[#708079]">No recommendations available.</p>
                       )}
                     </div>
                   </div>
 
                   {selectedCareInsights ? (
-                    <div className="space-y-3 rounded-3xl border border-white/10 bg-white/5 p-4">
-                      <p className="text-sm font-semibold text-cream">Care insights</p>
-                      <p className="text-xs uppercase tracking-[0.22em] text-slate-500">Water, sunlight, soil, and leaf guidance</p>
+                    <div className="space-y-3 rounded-3xl border border-[#dfe5d9] bg-[#f5f1e7] p-4">
+                      <p className="text-sm font-semibold text-[#20312f]">Care insights</p>
+                      <p className="text-xs uppercase tracking-[0.22em] text-[#8a9890]">Water, sunlight, soil, and leaf guidance</p>
                       <div className="grid gap-3 sm:grid-cols-2">
                         {[
                           { label: 'Water', value: selectedCareInsights.waterNeed, icon: Droplets },
@@ -365,19 +365,19 @@ export function HistoryPage() {
                           const Icon = item.icon;
 
                           return (
-                            <div key={item.label} className="rounded-2xl border border-white/10 bg-slate-950/60 p-4">
-                              <div className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-leaf-400/15 text-leaf-200">
+                            <div key={item.label} className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] p-4">
+                              <div className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-[#e8f3ef] text-[#347c70]">
                                 <Icon className="h-5 w-5" />
                               </div>
-                              <p className="mt-3 text-xs uppercase tracking-[0.22em] text-slate-500">{item.label}</p>
-                              <p className="mt-2 text-sm font-semibold text-cream">{item.value}</p>
+                              <p className="mt-3 text-xs uppercase tracking-[0.22em] text-[#8a9890]">{item.label}</p>
+                              <p className="mt-2 text-sm font-semibold text-[#20312f]">{item.value}</p>
                             </div>
                           );
                         })}
                       </div>
-                      <div className="space-y-2 text-sm leading-6 text-slate-300">
+                      <div className="space-y-2 text-sm leading-6 text-[#526460]">
                         {selectedCareInsights.careNotes.map((note) => (
-                          <div key={note} className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3">
+                          <div key={note} className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] px-4 py-3">
                             {note}
                           </div>
                         ))}

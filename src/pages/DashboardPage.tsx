@@ -284,21 +284,21 @@ export function DashboardPage() {
             aspectClassName="aspect-[3/1]"
             src="/plant.png"
           />
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-leaf-200">Dashboard</p>
-          <h1 className="max-w-2xl font-display text-5xl font-semibold leading-[1.05] text-cream sm:text-6xl">A little more life in every leaf.</h1>
-          <p className="max-w-2xl text-lg leading-8 text-slate-300">
+          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#347c70]">Dashboard</p>
+          <h1 className="max-w-2xl font-display text-5xl font-semibold leading-[1.05] text-[#20312f] sm:text-6xl">A little more life in every leaf.</h1>
+          <p className="max-w-2xl text-lg leading-8 text-[#526460]">
             A clear, calm view of your plant health, powered by thoughtful analysis and a little daily attention.
           </p>
         </div>
 
-        <div className="inline-flex items-center gap-2 rounded-full border border-leaf-300/20 bg-leaf-400/10 px-4 py-2 text-sm font-medium text-leaf-100">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[#b5ddd3] bg-[#eef8f5] px-4 py-2 text-sm font-medium text-[#347c70]">
           <Activity className="h-4 w-4" />
           Your living collection
         </div>
       </div>
 
       {error ? (
-        <div className="rounded-3xl border border-amber-400/20 bg-amber-400/10 px-5 py-4 text-sm text-amber-100">{error}</div>
+        <div className="rounded-3xl border border-amber-400/20 bg-[#fff3d4] px-5 py-4 text-sm text-[#7a5200]">{error}</div>
       ) : null}
 
       <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -331,14 +331,14 @@ export function DashboardPage() {
           const Icon = metric.icon;
 
           return (
-            <div key={metric.label} className="rounded-3xl border border-white/10 bg-slate-950/70 p-5 shadow-soft">
+            <div key={metric.label} className="rounded-3xl border border-[#dfe5d9] bg-[#fffdf7] p-5 shadow-soft">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-400">{metric.label}</p>
-                  <p className="mt-3 text-3xl font-bold text-cream">{metric.value}</p>
-                  <p className="mt-2 text-sm text-slate-400">{metric.detail}</p>
+                  <p className="text-sm font-medium uppercase tracking-[0.2em] text-[#708079]">{metric.label}</p>
+                  <p className="mt-3 text-3xl font-bold text-[#20312f]">{metric.value}</p>
+                  <p className="mt-2 text-sm text-[#708079]">{metric.detail}</p>
                 </div>
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-leaf-400/15 text-leaf-200">
+                <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#e8f3ef] text-[#347c70]">
                   <Icon className="h-6 w-6" />
                 </div>
               </div>
@@ -348,8 +348,8 @@ export function DashboardPage() {
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
-        <DashboardCard title="Weekly activity" action={<span className="text-sm text-slate-400">Bar Chart</span>}>
-          <div className="h-[22rem] rounded-[1.5rem] border border-white/10 bg-white/5 p-4">
+        <DashboardCard title="Weekly activity" action={<span className="text-sm text-[#708079]">Bar Chart</span>}>
+          <div className="h-[22rem] rounded-[1.5rem] border border-[#dfe5d9] bg-[#f5f1e7] p-4">
             {loading ? (
               <LoadingSkeleton className="h-full w-full rounded-[1.25rem]" />
             ) : hasAnalyses ? (
@@ -360,46 +360,46 @@ export function DashboardPage() {
           </div>
         </DashboardCard>
 
-        <DashboardCard title="Health distribution" action={<span className="text-sm text-slate-400">Doughnut Chart</span>}>
-          <div className="flex h-[22rem] items-center justify-center rounded-[1.5rem] border border-white/10 bg-white/5 p-4">
+        <DashboardCard title="Health distribution" action={<span className="text-sm text-[#708079]">Doughnut Chart</span>}>
+          <div className="flex h-[22rem] items-center justify-center rounded-[1.5rem] border border-[#dfe5d9] bg-[#f5f1e7] p-4">
             {loading ? <LoadingSkeleton className="h-full w-full rounded-[1.25rem]" /> : hasAnalyses ? <Doughnut data={doughnutData} options={doughnutOptions} /> : <EmptyState icon={Sprout} title="No health data yet" description="Run an analysis to see healthy, monitor, and attention segments here." actionLabel="Upload plant" onClick={() => navigate('/upload')} />}
           </div>
         </DashboardCard>
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
-        <DashboardCard title="Most scanned plants" action={<span className="text-sm text-slate-400">Top 5</span>}>
+        <DashboardCard title="Most scanned plants" action={<span className="text-sm text-[#708079]">Top 5</span>}>
           <div className="space-y-4">
             {scannedPlants.length > 0 ? (
               scannedPlants.map((plant, index) => (
-                <div key={plant.label} className="flex items-center justify-between rounded-2xl bg-white/5 px-4 py-3 text-sm text-slate-300">
+                <div key={plant.label} className="flex items-center justify-between rounded-2xl bg-[#f5f1e7] px-4 py-3 text-sm text-[#526460]">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-leaf-400/15 text-leaf-200">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#e8f3ef] text-[#347c70]">
                       <Leaf className="h-4 w-4" />
                     </div>
                     <div>
-                      <p className="font-medium text-cream">{plant.label}</p>
-                      <p className="text-xs text-slate-500">Rank #{index + 1}</p>
+                      <p className="font-medium text-[#20312f]">{plant.label}</p>
+                      <p className="text-xs text-[#8a9890]">Rank #{index + 1}</p>
                     </div>
                   </div>
-                  <span className="rounded-full bg-leaf-400/10 px-3 py-1 text-xs font-semibold text-leaf-200">{plant.count} scans</span>
+                  <span className="rounded-full bg-[#eef8f5] px-3 py-1 text-xs font-semibold text-[#347c70]">{plant.count} scans</span>
                 </div>
               ))
             ) : (
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-sm text-slate-400">No scans yet.</div>
+              <div className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] p-5 text-sm text-[#708079]">No scans yet.</div>
             )}
           </div>
         </DashboardCard>
 
-        <DashboardCard title="Monthly activity" action={<span className="text-sm text-slate-400">Line Chart</span>}>
-          <div className="h-[22rem] rounded-[1.5rem] border border-white/10 bg-white/5 p-4">
+        <DashboardCard title="Monthly activity" action={<span className="text-sm text-[#708079]">Line Chart</span>}>
+          <div className="h-[22rem] rounded-[1.5rem] border border-[#dfe5d9] bg-[#f5f1e7] p-4">
             {loading ? <LoadingSkeleton className="h-full w-full rounded-[1.25rem]" /> : hasAnalyses ? <Line data={monthlyLineData} options={chartOptions} /> : <EmptyState icon={Sprout} title="No monthly activity yet" description="Once analyses exist, this chart will track your scan volume by month." actionLabel="Upload plant" onClick={() => navigate('/upload')} />}
           </div>
         </DashboardCard>
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
-        <DashboardCard title="Recent analyses" action={<span className="text-sm text-slate-400">Live feed</span>}>
+        <DashboardCard title="Recent analyses" action={<span className="text-sm text-[#708079]">Live feed</span>}>
           <div className="space-y-4">
             {loading ? (
               <>
@@ -415,18 +415,18 @@ export function DashboardPage() {
                   type="button"
                   onClick={() => setSelectedAnalysisId(analysis.id)}
                   className={cn(
-                    'w-full rounded-2xl border bg-white/5 p-4 text-left text-sm text-slate-300 transition hover:-translate-y-0.5 hover:border-leaf-400/30',
-                    selectedAnalysis?.id === analysis.id ? 'border-leaf-400/50 ring-1 ring-leaf-400/20' : 'border-white/10'
+                    'w-full rounded-2xl border bg-[#f5f1e7] p-4 text-left text-sm text-[#526460] transition hover:-translate-y-0.5 hover:border-leaf-400/30',
+                    selectedAnalysis?.id === analysis.id ? 'border-leaf-400/50 ring-1 ring-leaf-400/20' : 'border-[#dfe5d9]'
                   )}
                 >
                   <div className="flex items-center justify-between gap-4">
                     <div>
-                      <p className="font-semibold text-cream">{analysis.commonName}</p>
-                      <p className="text-slate-400">{analysis.scientificName}</p>
+                      <p className="font-semibold text-[#20312f]">{analysis.commonName}</p>
+                      <p className="text-[#708079]">{analysis.scientificName}</p>
                     </div>
-                    <span className="rounded-full bg-leaf-400/10 px-3 py-1 text-xs font-semibold text-leaf-200">{analysis.healthScore}%</span>
+                    <span className="rounded-full bg-[#eef8f5] px-3 py-1 text-xs font-semibold text-[#347c70]">{analysis.healthScore}%</span>
                   </div>
-                  <p className="mt-3 leading-6 text-slate-400">
+                  <p className="mt-3 leading-6 text-[#708079]">
                     Confidence {analysis.confidence}% · {new Date(analysis.createdAt).toLocaleDateString()}
                   </p>
                 </button>
@@ -435,10 +435,10 @@ export function DashboardPage() {
           </div>
         </DashboardCard>
 
-        <DashboardCard title="Full result details" action={<span className="text-sm text-slate-400">Selected analysis</span>}>
+        <DashboardCard title="Full result details" action={<span className="text-sm text-[#708079]">Selected analysis</span>}>
           {selectedAnalysis ? (
             <div className="space-y-5">
-              <div className="overflow-hidden rounded-3xl border border-white/10 bg-slate-950">
+              <div className="overflow-hidden rounded-3xl border border-[#dfe5d9] bg-[#20312f]">
                 <img
                   src={selectedAnalysis.imageUrl}
                   alt={selectedAnalysis.commonName}
@@ -453,47 +453,47 @@ export function DashboardPage() {
               <div className="space-y-3">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
-                    <h3 className="text-2xl font-semibold text-cream">{selectedAnalysis.commonName}</h3>
-                    <p className="text-sm text-slate-400">{selectedAnalysis.scientificName}</p>
+                    <h3 className="text-2xl font-semibold text-[#20312f]">{selectedAnalysis.commonName}</h3>
+                    <p className="text-sm text-[#708079]">{selectedAnalysis.scientificName}</p>
                   </div>
-                  <span className="rounded-full bg-leaf-400/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-leaf-200">
+                  <span className="rounded-full bg-[#e8f3ef] px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#347c70]">
                     {selectedAnalysis.healthScore >= 85 ? 'Healthy' : selectedAnalysis.healthScore >= 65 ? 'Monitoring' : 'Attention needed'}
                   </span>
                 </div>
 
                 <div className="grid gap-3 sm:grid-cols-2">
-                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                    <p className="text-xs uppercase tracking-[0.22em] text-slate-500">Confidence</p>
-                    <p className="mt-2 text-2xl font-bold text-cream">{selectedAnalysis.confidence}%</p>
+                  <div className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] p-4">
+                    <p className="text-xs uppercase tracking-[0.22em] text-[#8a9890]">Confidence</p>
+                    <p className="mt-2 text-2xl font-bold text-[#20312f]">{selectedAnalysis.confidence}%</p>
                   </div>
-                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                    <p className="text-xs uppercase tracking-[0.22em] text-slate-500">Health score</p>
-                    <p className="mt-2 text-2xl font-bold text-cream">{selectedAnalysis.healthScore}%</p>
+                  <div className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] p-4">
+                    <p className="text-xs uppercase tracking-[0.22em] text-[#8a9890]">Health score</p>
+                    <p className="mt-2 text-2xl font-bold text-[#20312f]">{selectedAnalysis.healthScore}%</p>
                   </div>
-                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4 sm:col-span-2">
-                    <p className="text-xs uppercase tracking-[0.22em] text-slate-500">Analyzed on</p>
-                    <p className="mt-2 text-sm font-medium text-cream">{new Date(selectedAnalysis.createdAt).toLocaleString()}</p>
+                  <div className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] p-4 sm:col-span-2">
+                    <p className="text-xs uppercase tracking-[0.22em] text-[#8a9890]">Analyzed on</p>
+                    <p className="mt-2 text-sm font-medium text-[#20312f]">{new Date(selectedAnalysis.createdAt).toLocaleString()}</p>
                   </div>
                 </div>
 
-                <div className="space-y-3 rounded-3xl border border-white/10 bg-white/5 p-4">
-                  <p className="text-sm font-semibold text-cream">Recommendations</p>
+                <div className="space-y-3 rounded-3xl border border-[#dfe5d9] bg-[#f5f1e7] p-4">
+                  <p className="text-sm font-semibold text-[#20312f]">Recommendations</p>
                   <div className="space-y-2">
                     {selectedAnalysis.recommendations.length > 0 ? (
                       selectedAnalysis.recommendations.map((recommendation) => (
-                        <div key={recommendation} className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-sm leading-6 text-slate-300">
+                        <div key={recommendation} className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] px-4 py-3 text-sm leading-6 text-[#526460]">
                           {recommendation}
                         </div>
                       ))
                     ) : (
-                      <p className="text-sm text-slate-400">No recommendations available.</p>
+                      <p className="text-sm text-[#708079]">No recommendations available.</p>
                     )}
                   </div>
                 </div>
 
                 {selectedCareInsights ? (
-                  <div className="space-y-3 rounded-3xl border border-white/10 bg-white/5 p-4">
-                    <p className="text-sm font-semibold text-cream">Care insights</p>
+                  <div className="space-y-3 rounded-3xl border border-[#dfe5d9] bg-[#f5f1e7] p-4">
+                    <p className="text-sm font-semibold text-[#20312f]">Care insights</p>
                     <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                       {[
                         { label: 'Water', value: selectedCareInsights.waterNeed, icon: Droplets },
@@ -507,19 +507,19 @@ export function DashboardPage() {
                         const Icon = item.icon;
 
                         return (
-                          <div key={item.label} className="rounded-2xl border border-white/10 bg-slate-950/60 p-4">
-                            <div className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-leaf-400/15 text-leaf-200">
+                          <div key={item.label} className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] p-4">
+                            <div className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-[#e8f3ef] text-[#347c70]">
                               <Icon className="h-5 w-5" />
                             </div>
-                            <p className="mt-3 text-xs uppercase tracking-[0.22em] text-slate-500">{item.label}</p>
-                            <p className="mt-2 text-sm font-semibold text-cream">{item.value}</p>
+                            <p className="mt-3 text-xs uppercase tracking-[0.22em] text-[#8a9890]">{item.label}</p>
+                            <p className="mt-2 text-sm font-semibold text-[#20312f]">{item.value}</p>
                           </div>
                         );
                       })}
                     </div>
-                    <div className="space-y-2 text-sm leading-6 text-slate-300">
+                    <div className="space-y-2 text-sm leading-6 text-[#526460]">
                       {selectedCareInsights.careNotes.map((note) => (
-                        <div key={note} className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3">
+                        <div key={note} className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] px-4 py-3">
                           {note}
                         </div>
                       ))}
@@ -541,23 +541,23 @@ export function DashboardPage() {
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
-        <DashboardCard title="Monthly comparison" action={<span className="text-sm text-slate-400">Overview</span>}>
+        <DashboardCard title="Monthly comparison" action={<span className="text-sm text-[#708079]">Overview</span>}>
           <div className="grid gap-4 md:grid-cols-3">
             {[
-              { label: 'Healthy', value: analyses.filter((analysis) => analysis.healthScore >= 85).length, tone: 'text-leaf-200' },
+              { label: 'Healthy', value: analyses.filter((analysis) => analysis.healthScore >= 85).length, tone: 'text-[#347c70]' },
               { label: 'Monitor', value: analyses.filter((analysis) => analysis.healthScore >= 65 && analysis.healthScore < 85).length, tone: 'text-brand-200' },
               { label: 'Attention', value: analyses.filter((analysis) => analysis.healthScore < 65).length, tone: 'text-amber-200' },
             ].map((item) => (
-              <div key={item.label} className="rounded-2xl border border-white/10 bg-white/5 p-5">
+              <div key={item.label} className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] p-5">
                 <p className={cn('text-sm font-medium uppercase tracking-[0.22em]', item.tone)}>{item.label}</p>
-                <p className="mt-3 text-3xl font-bold text-cream">{item.value}</p>
-                <p className="mt-2 text-sm text-slate-400">Across the current analytics dataset</p>
+                <p className="mt-3 text-3xl font-bold text-[#20312f]">{item.value}</p>
+                <p className="mt-2 text-sm text-[#708079]">Across the current analytics dataset</p>
               </div>
             ))}
           </div>
         </DashboardCard>
 
-        <DashboardCard title="Result checklist" action={<span className="text-sm text-slate-400">Seen in dashboard</span>}>
+        <DashboardCard title="Result checklist" action={<span className="text-sm text-[#708079]">Seen in dashboard</span>}>
           <div className="grid gap-3 sm:grid-cols-2">
             {[
               { label: 'Image preview', copy: 'View the exact uploaded plant image.', icon: Sprout },
@@ -568,12 +568,12 @@ export function DashboardPage() {
               const Icon = item.icon;
 
               return (
-                <div key={item.label} className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-leaf-400/15 text-leaf-200">
+                <div key={item.label} className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] p-4">
+                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-[#e8f3ef] text-[#347c70]">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <h3 className="mt-4 text-base font-semibold text-cream">{item.label}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-400">{item.copy}</p>
+                  <h3 className="mt-4 text-base font-semibold text-[#20312f]">{item.label}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#708079]">{item.copy}</p>
                 </div>
               );
             })}

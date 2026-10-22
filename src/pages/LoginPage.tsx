@@ -89,14 +89,14 @@ export function LoginPage() {
           aspectClassName="aspect-[4/3]"
         />
         <div className="space-y-6 px-3 pb-3 pt-6">
-          <div className="inline-flex items-center gap-2 rounded-full border border-leaf-300/20 bg-leaf-400/10 px-4 py-2 text-sm font-medium text-leaf-100">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#b5ddd3] bg-[#eef8f5] px-4 py-2 text-sm font-medium text-[#347c70]">
           <LogIn className="h-4 w-4" />
           Secure access
           </div>
-        <h1 className="max-w-2xl font-display text-4xl font-semibold leading-tight text-cream sm:text-5xl">
+        <h1 className="max-w-2xl font-display text-4xl font-semibold leading-tight text-[#20312f] sm:text-5xl">
           Sign in to your personal plant analytics workspace.
         </h1>
-        <p className="max-w-2xl text-lg leading-8 text-slate-300">
+        <p className="max-w-2xl text-lg leading-8 text-[#526460]">
           Each account gets isolated analyses, private dashboard statistics, and a protected history archive.
         </p>
           <div className="grid gap-4 sm:grid-cols-3">
@@ -107,12 +107,12 @@ export function LoginPage() {
           ].map((item) => {
             const Icon = item.icon;
             return (
-              <div key={item.title} className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-soft">
-                <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-leaf-400/15 text-leaf-200">
+              <div key={item.title} className="rounded-3xl border border-[#dfe5d9] bg-[#f5f1e7] p-5 shadow-soft">
+                <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-[#e8f3ef] text-[#347c70]">
                   <Icon className="h-5 w-5" />
                 </div>
-                <h2 className="mt-4 text-lg font-semibold text-cream">{item.title}</h2>
-                <p className="mt-2 text-sm leading-6 text-slate-400">{item.copy}</p>
+                <h2 className="mt-4 text-lg font-semibold text-[#20312f]">{item.title}</h2>
+                <p className="mt-2 text-sm leading-6 text-[#708079]">{item.copy}</p>
               </div>
             );
           })}
@@ -120,12 +120,12 @@ export function LoginPage() {
         </div>
       </div>
 
-      <div className="h-full rounded-[2rem] border border-white/10 bg-slate-950/80 p-6 shadow-soft sm:p-8">
+      <div className="h-full rounded-[2rem] border border-[#dfe5d9] bg-[#fffdf7] p-6 shadow-soft sm:p-8">
         <form className="space-y-5" onSubmit={handleSubmit}>
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-leaf-200">Welcome back</p>
-            <h2 className="mt-3 text-3xl font-semibold text-cream">Log in</h2>
-            <p className="mt-2 text-sm leading-6 text-slate-400">Use your account email and password to continue.</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#347c70]">Welcome back</p>
+            <h2 className="mt-3 text-3xl font-semibold text-[#20312f]">Log in</h2>
+            <p className="mt-2 text-sm leading-6 text-[#708079]">Use your account email and password to continue.</p>
           </div>
 
           <div className="space-y-3">
@@ -149,32 +149,32 @@ export function LoginPage() {
               </span>
               {loading ? 'Signing in...' : 'Continue with Google'}
             </button>
-            <div className="flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-slate-500">
-              <span className="h-px flex-1 bg-white/10" />
+            <div className="flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-[#8a9890]">
+              <span className="h-px flex-1 bg-[#eef1eb]" />
               or use email
-              <span className="h-px flex-1 bg-white/10" />
+              <span className="h-px flex-1 bg-[#eef1eb]" />
             </div>
           </div>
 
           {!googleClientId ? (
-            <p className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-400">
+            <p className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] px-4 py-3 text-sm text-[#708079]">
               Add VITE_GOOGLE_CLIENT_ID to enable Google sign-in.
             </p>
           ) : null}
 
-          <label className="block space-y-2 text-sm text-slate-300">
+          <label className="block space-y-2 text-sm text-[#526460]">
             <span>Email</span>
             <input
               type="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               required
-              className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-cream outline-none transition placeholder:text-slate-500 focus:border-leaf-400/40"
+              className="w-full rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] px-4 py-3 text-[#20312f] outline-none transition placeholder:text-[#8a9890] focus:border-[#86c4b7]"
               placeholder="you@example.com"
             />
           </label>
 
-          <label className="block space-y-2 text-sm text-slate-300">
+          <label className="block space-y-2 text-sm text-[#526460]">
             <span>Password</span>
             <input
               type="password"
@@ -182,12 +182,12 @@ export function LoginPage() {
               onChange={(event) => setPassword(event.target.value)}
               required
               minLength={8}
-              className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-cream outline-none transition placeholder:text-slate-500 focus:border-leaf-400/40"
+              className="w-full rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] px-4 py-3 text-[#20312f] outline-none transition placeholder:text-[#8a9890] focus:border-[#86c4b7]"
               placeholder="Enter your password"
             />
           </label>
 
-          {error ? <p className="rounded-2xl border border-amber-400/20 bg-amber-400/10 px-4 py-3 text-sm text-amber-100">{error}</p> : null}
+          {error ? <p className="rounded-2xl border border-amber-400/20 bg-[#fff3d4] px-4 py-3 text-sm text-[#7a5200]">{error}</p> : null}
 
           <button
             type="submit"
@@ -201,9 +201,9 @@ export function LoginPage() {
             <ArrowRight className="h-4 w-4" />
           </button>
 
-          <p className="text-center text-sm text-slate-400">
+          <p className="text-center text-sm text-[#708079]">
             No account yet?{' '}
-            <Link to="/register" className="font-semibold text-leaf-200 transition hover:text-leaf-100">
+            <Link to="/register" className="font-semibold text-[#347c70] transition hover:text-[#347c70]">
               Create one
             </Link>
           </p>

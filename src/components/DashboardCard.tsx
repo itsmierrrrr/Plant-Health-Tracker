@@ -12,7 +12,7 @@ export function DashboardCard({ title, action, children, className }: DashboardC
   return (
     <section className={cn('rounded-[1.75rem] border border-[#dfe5d9] bg-[#fffdf7] p-6 shadow-soft', className)}>
       <div className="mb-5 flex items-center justify-between gap-4">
-        <h3 className="text-lg font-semibold text-cream">{title}</h3>
+        <h3 className="text-lg font-semibold text-[#20312f]">{title}</h3>
         {action}
       </div>
       {children}

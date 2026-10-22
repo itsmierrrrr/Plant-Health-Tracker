@@ -163,9 +163,9 @@ export function AnalysisResultsPage() {
             aspectClassName="aspect-[3/1]"
             src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=900&q=85"
           />
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-leaf-200">Analysis results</p>
-          <h1 className="font-display text-4xl font-semibold text-cream sm:text-5xl">Backend analysis completed successfully.</h1>
-          <p className="max-w-2xl text-lg leading-8 text-slate-300">
+          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#347c70]">Analysis results</p>
+          <h1 className="font-display text-4xl font-semibold text-[#20312f] sm:text-5xl">Backend analysis completed successfully.</h1>
+          <p className="max-w-2xl text-lg leading-8 text-[#526460]">
             The upload was analyzed by the backend, normalized, and redirected here with the returned result.
           </p>
         </div>
@@ -197,7 +197,7 @@ export function AnalysisResultsPage() {
           <div className="relative aspect-[4/3]">
             <img src={analysis.imageUrl} alt={analysis.commonName} className="h-full w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
-            <div className="absolute bottom-4 left-4 rounded-full bg-slate-950/80 px-4 py-2 text-sm font-medium text-cream">
+            <div className="absolute bottom-4 left-4 rounded-full bg-[#fffdf7] px-4 py-2 text-sm font-medium text-[#20312f]">
               {analysis.commonName}
             </div>
           </div>
@@ -205,44 +205,44 @@ export function AnalysisResultsPage() {
 
         <div className="space-y-6">
           <DashboardCard title="Plant information">
-            <div className="space-y-4 text-sm text-slate-300">
-              <div className="flex items-center justify-between rounded-2xl bg-white/5 px-4 py-3">
-                <span className="text-slate-400">Common name</span>
-                <span className="font-medium text-cream">{analysis.commonName}</span>
+            <div className="space-y-4 text-sm text-[#526460]">
+              <div className="flex items-center justify-between rounded-2xl bg-[#f5f1e7] px-4 py-3">
+                <span className="text-[#708079]">Common name</span>
+                <span className="font-medium text-[#20312f]">{analysis.commonName}</span>
               </div>
-              <div className="flex items-center justify-between rounded-2xl bg-white/5 px-4 py-3">
-                <span className="text-slate-400">Scientific name</span>
-                <span className="font-medium text-cream">{analysis.scientificName}</span>
+              <div className="flex items-center justify-between rounded-2xl bg-[#f5f1e7] px-4 py-3">
+                <span className="text-[#708079]">Scientific name</span>
+                <span className="font-medium text-[#20312f]">{analysis.scientificName}</span>
               </div>
-              <div className="flex items-center justify-between rounded-2xl bg-white/5 px-4 py-3">
-                <span className="text-slate-400">Status</span>
-                <span className="font-medium text-leaf-200">{statusLabel}</span>
+              <div className="flex items-center justify-between rounded-2xl bg-[#f5f1e7] px-4 py-3">
+                <span className="text-[#708079]">Status</span>
+                <span className="font-medium text-[#347c70]">{statusLabel}</span>
               </div>
-              <div className="flex items-center justify-between rounded-2xl bg-white/5 px-4 py-3">
-                <span className="text-slate-400">Analyzed</span>
-                <span className="font-medium text-cream">{formatTimestamp(analysis.createdAt)}</span>
+              <div className="flex items-center justify-between rounded-2xl bg-[#f5f1e7] px-4 py-3">
+                <span className="text-[#708079]">Analyzed</span>
+                <span className="font-medium text-[#20312f]">{formatTimestamp(analysis.createdAt)}</span>
               </div>
             </div>
           </DashboardCard>
 
           <DashboardCard title="Confidence and health">
   <div className="grid gap-5 items-stretch sm:grid-cols-2">
-    <div className="rounded-3xl border border-white/10 bg-white/5 p-5 flex flex-col h-full">
+    <div className="rounded-3xl border border-[#dfe5d9] bg-[#f5f1e7] p-5 flex flex-col h-full">
       <div className="flex items-center gap-3">
-        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-leaf-400/15 text-leaf-200">
+        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#e8f3ef] text-[#347c70]">
           <BadgeCheck className="h-5 w-5" />
         </div>
 
         <div>
-          <p className="text-sm text-slate-400">Confidence score</p>
-          <p className="text-3xl font-bold text-cream">
+          <p className="text-sm text-[#708079]">Confidence score</p>
+          <p className="text-3xl font-bold text-[#20312f]">
             {analysis.confidence}%
           </p>
         </div>
       </div>
 
       {/* Progress Bar */}
-      <div className="mt-4 h-2 rounded-full bg-white/10">
+      <div className="mt-4 h-2 rounded-full bg-[#eef1eb]">
         <div
           className="h-full rounded-full bg-gradient-to-r from-leaf-400 to-brand-300"
           style={{ width: `${analysis.confidence}%` }}
@@ -250,7 +250,7 @@ export function AnalysisResultsPage() {
       </div>
 
       {/* Description */}
-      <p className="mt-auto pt-4 text-sm text-slate-400 leading-relaxed">
+      <p className="mt-auto pt-4 text-sm text-[#708079] leading-relaxed">
         Confidence score is the AI's certainty in identifying the plant correctly.
       </p>
     </div>
@@ -261,7 +261,7 @@ export function AnalysisResultsPage() {
         </div>
       </div>
 
-      <DashboardCard title="Care insights" action={<span className="text-sm text-slate-400">Estimated from analysis</span>}>
+      <DashboardCard title="Care insights" action={<span className="text-sm text-[#708079]">Estimated from analysis</span>}>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {careInsights
             ? [
@@ -276,12 +276,12 @@ export function AnalysisResultsPage() {
                 const Icon = item.icon;
 
                 return (
-                  <div key={item.label} className="rounded-3xl border border-white/10 bg-white/5 p-5">
-                    <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-leaf-400/15 text-leaf-200">
+                  <div key={item.label} className="rounded-3xl border border-[#dfe5d9] bg-[#f5f1e7] p-5">
+                    <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-[#e8f3ef] text-[#347c70]">
                       <Icon className="h-5 w-5" />
                     </div>
-                    <p className="mt-4 text-sm font-medium uppercase tracking-[0.2em] text-slate-400">{item.label}</p>
-                    <p className="mt-2 text-lg font-semibold text-cream">{item.value}</p>
+                    <p className="mt-4 text-sm font-medium uppercase tracking-[0.2em] text-[#708079]">{item.label}</p>
+                    <p className="mt-2 text-lg font-semibold text-[#20312f]">{item.value}</p>
                   </div>
                 );
               })
@@ -291,32 +291,32 @@ export function AnalysisResultsPage() {
 
       <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
         <DashboardCard title="Analysis summary">
-          <div className="space-y-4 text-sm leading-7 text-slate-300">
+          <div className="space-y-4 text-sm leading-7 text-[#526460]">
             <p>
               {analysis.commonName}
               {analysis.scientificName ? ` (${analysis.scientificName})` : ''} was matched with {analysis.confidence}% confidence. Health score is {analysis.healthScore} — {statusLabel}.
             </p>
 
             <div className="grid gap-3 sm:grid-cols-2">
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <div className="mb-2 flex items-center gap-2 font-semibold text-cream">
-                  <Sparkles className="h-4 w-4 text-leaf-300" />
+              <div className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] p-4">
+                <div className="mb-2 flex items-center gap-2 font-semibold text-[#20312f]">
+                  <Sparkles className="h-4 w-4 text-[#28685e]" />
                   Normalized data
                 </div>
                 <p>Matched taxonomy and cleaned fields for display (common & scientific names).</p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <div className="mb-2 flex items-center gap-2 font-semibold text-cream">
-                  <ThermometerSun className="h-4 w-4 text-leaf-300" />
+              <div className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] p-4">
+                <div className="mb-2 flex items-center gap-2 font-semibold text-[#20312f]">
+                  <ThermometerSun className="h-4 w-4 text-[#28685e]" />
                   Health context
                 </div>
                 <p>Health estimate computed from image condition, PlantNet identification, and analysis.</p>
               </div>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <div className="mb-2 flex items-center gap-2 font-semibold text-cream">
-                <Droplets className="h-4 w-4 text-leaf-300" />
+            <div className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] p-4">
+              <div className="mb-2 flex items-center gap-2 font-semibold text-[#20312f]">
+                <Droplets className="h-4 w-4 text-[#28685e]" />
                 Care profile
               </div>
               <p>
@@ -329,8 +329,8 @@ export function AnalysisResultsPage() {
         <DashboardCard title="Recommendations">
           <div className="space-y-3">
             {analysis.recommendations.map((recommendation) => (
-              <div key={recommendation} className="flex gap-3 rounded-2xl bg-white/5 p-4 text-sm text-slate-300">
-                <TriangleAlert className="mt-0.5 h-5 w-5 shrink-0 text-leaf-300" />
+              <div key={recommendation} className="flex gap-3 rounded-2xl bg-[#f5f1e7] p-4 text-sm text-[#526460]">
+                <TriangleAlert className="mt-0.5 h-5 w-5 shrink-0 text-[#28685e]" />
                 <p className="leading-6">{recommendation}</p>
               </div>
             ))}
@@ -339,10 +339,10 @@ export function AnalysisResultsPage() {
       </div>
 
       {careInsights ? (
-        <DashboardCard title="Quick care notes" action={<span className="text-sm text-slate-400">Actionable</span>}>
-          <div className="space-y-3 text-sm leading-6 text-slate-300">
+        <DashboardCard title="Quick care notes" action={<span className="text-sm text-[#708079]">Actionable</span>}>
+          <div className="space-y-3 text-sm leading-6 text-[#526460]">
             {careInsights.careNotes.map((note) => (
-              <div key={note} className="rounded-2xl border border-white/10 bg-white/5 p-4">
+              <div key={note} className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] p-4">
                 {note}
               </div>
             ))}

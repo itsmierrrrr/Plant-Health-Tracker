@@ -12,15 +12,15 @@ export function HomePage() {
       <section>
         <PageContainer className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
           <div className="reveal-up space-y-8">
-            <div className="inline-flex items-center gap-2 rounded-full border border-leaf-300/20 bg-leaf-400/10 px-4 py-2 text-sm font-medium text-leaf-200">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#b5ddd3] bg-[#eef8f5] px-4 py-2 text-sm font-medium text-[#347c70]">
               {/* <Sparkles className="h-4 w-4" /> */}
               AI-powered plant monitoring dashboard
             </div>
             <div className="space-y-5">
-              <h1 className="max-w-3xl font-display text-5xl font-semibold leading-tight text-cream sm:text-6xl lg:text-7xl">
+              <h1 className="max-w-3xl font-display text-5xl font-semibold leading-tight text-[#20312f] sm:text-6xl lg:text-7xl">
                 A little more life in every leaf.
               </h1>
-              <p className="max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
+              <p className="max-w-2xl text-lg leading-8 text-[#526460] sm:text-xl">
                 See what your plants are telling you. Plant Pulse turns one simple photo into a calmer, clearer care routine.
               </p>
             </div>
@@ -36,7 +36,7 @@ export function HomePage() {
                 to="/dashboard"
                 className="meadow-button-secondary inline-flex items-center gap-2 rounded-full border px-6 py-3.5 text-sm font-semibold"
               >
-                <PlayCircle className="h-4 w-4 text-leaf-300" />
+                <PlayCircle className="h-4 w-4 text-[#28685e]" />
                 View dashboard
               </Link>
             </div>
@@ -64,7 +64,7 @@ export function HomePage() {
                 <div className="float-gently absolute right-5 top-5 rounded-full bg-[#fffdf7]/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#347c70] shadow-lg">
                   In tune with nature
                 </div>
-                <div className="absolute bottom-5 left-5 right-5 rounded-3xl border border-white/30 bg-[#fffdf7]/90 p-5 backdrop-blur-sm">
+                <div className="absolute bottom-5 left-5 right-5 rounded-3xl border border-[#dfe5d9] bg-[#fffdf7]/90 p-5 backdrop-blur-sm">
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#708079]">Plant Pulse method</p>
@@ -82,8 +82,8 @@ export function HomePage() {
                   return (
                     <div key={card.title} className="meadow-card rounded-2xl p-4">
                       <Icon className="h-5 w-5 text-[#347c70]" />
-                      <h3 className="mt-3 font-semibold text-cream">{card.title}</h3>
-                      <p className="mt-1 text-xs leading-5 text-slate-400">{card.description}</p>
+                      <h3 className="mt-3 font-semibold text-[#20312f]">{card.title}</h3>
+                      <p className="mt-1 text-xs leading-5 text-[#708079]">{card.description}</p>
                     </div>
                   );
                 })}
@@ -97,10 +97,10 @@ export function HomePage() {
         <PageContainer>
           <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div className="max-w-2xl space-y-3">
-              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-leaf-200">A closer look</p>
-              <h2 className="text-3xl font-semibold text-cream sm:text-4xl">Small observations lead to healthier plants.</h2>
+              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#347c70]">A closer look</p>
+              <h2 className="text-3xl font-semibold text-[#20312f] sm:text-4xl">Small observations lead to healthier plants.</h2>
             </div>
-            <p className="max-w-sm text-sm leading-6 text-slate-400">
+            <p className="max-w-sm text-sm leading-6 text-[#708079]">
               Spot the details, understand the signals, and make every corner of your home feel a little greener.
             </p>
           </div>
@@ -133,10 +133,10 @@ export function HomePage() {
         <PageContainer>
           <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div className="max-w-2xl space-y-3">
-              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-leaf-200">Bring nature home</p>
-              <h2 className="text-3xl font-semibold text-cream sm:text-4xl">A calmer space starts with a little green.</h2>
+              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#347c70]">Bring nature home</p>
+              <h2 className="text-3xl font-semibold text-[#20312f] sm:text-4xl">A calmer space starts with a little green.</h2>
             </div>
-            <p className="max-w-sm text-sm leading-6 text-slate-400">
+            <p className="max-w-sm text-sm leading-6 text-[#708079]">
               Build a care ritual that feels as good as your plants look, from the first sprout to every new leaf.
             </p>
           </div>
@@ -185,8 +185,8 @@ export function HomePage() {
       <section>
         <PageContainer>
           <div className="mb-8 flex flex-col gap-3">
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-leaf-200">Features</p>
-            <h2 className="text-3xl font-semibold text-cream sm:text-4xl">Everything feels polished from the first click.</h2>
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#347c70]">Features</p>
+            <h2 className="text-3xl font-semibold text-[#20312f] sm:text-4xl">Everything feels polished from the first click.</h2>
           </div>
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {features.map((feature) => (

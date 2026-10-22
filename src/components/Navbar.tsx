@@ -36,8 +36,8 @@ export function Navbar() {
               <Sprout className="h-6 w-6" />
             </span>
             <div className="leading-tight">
-              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-slate-400">AI plant health tracker</p>
-              <p className="font-display text-lg font-semibold text-cream">Plant Pulse</p>
+              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-[#708079]">AI plant health tracker</p>
+              <p className="font-display text-lg font-semibold text-[#20312f]">Plant Pulse</p>
             </div>
           </NavLink>
 
@@ -48,8 +48,8 @@ export function Navbar() {
                 to={item.to}
                 className={({ isActive }) =>
                   cn(
-                    'rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 hover:bg-white/10 hover:text-cream',
-                    isActive ? 'bg-[#347c70] text-white shadow-sm' : 'text-slate-300'
+                    'rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 hover:bg-[#eef1eb] hover:text-[#20312f]',
+                    isActive ? 'bg-[#347c70] text-white shadow-sm' : 'text-[#526460]'
                   )
                 }
               >
@@ -61,8 +61,8 @@ export function Navbar() {
           <div className="hidden items-center gap-3 lg:flex">
             {isAuthenticated ? (
               <>
-                <div className="flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300">
-                  <UserCircle2 className="h-4 w-4 text-leaf-200" />
+                <div className="flex items-center gap-3 rounded-full border border-[#dfe5d9] bg-[#f5f1e7] px-4 py-2 text-sm text-[#526460]">
+                  <UserCircle2 className="h-4 w-4 text-[#347c70]" />
                   <span>{user?.name || user?.email || 'Account'}</span>
                 </div>
                 <button
@@ -75,13 +75,13 @@ export function Navbar() {
                 </button>
               </>
             ) : (
-              <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 p-2">
+              <div className="flex items-center gap-2 rounded-full border border-[#dfe5d9] bg-[#f5f1e7] p-2">
                 <NavLink
                   to="/login"
                   className={({ isActive }) =>
                     cn(
-                      'rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 hover:bg-white/10 hover:text-cream',
-                      isActive ? 'bg-cream text-brand-900 shadow-sm' : 'text-slate-300'
+                      'rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 hover:bg-[#eef1eb] hover:text-[#20312f]',
+                      isActive ? 'bg-cream text-[#173a36] shadow-sm' : 'text-[#526460]'
                     )
                   }
                 >
@@ -91,8 +91,8 @@ export function Navbar() {
                   to="/register"
                   className={({ isActive }) =>
                     cn(
-                      'rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 hover:bg-white/10 hover:text-cream',
-                      isActive ? 'bg-cream text-brand-900 shadow-sm' : 'text-slate-300'
+                      'rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 hover:bg-[#eef1eb] hover:text-[#20312f]',
+                      isActive ? 'bg-cream text-[#173a36] shadow-sm' : 'text-[#526460]'
                     )
                   }
                 >
@@ -105,7 +105,7 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => setIsOpen((open) => !open)}
-            className="inline-flex items-center justify-center rounded-2xl border border-[#dfe5d9] bg-[#fffdf7] p-3 text-cream transition hover:bg-[#f5f1e7] lg:hidden"
+            className="inline-flex items-center justify-center rounded-2xl border border-[#dfe5d9] bg-[#fffdf7] p-3 text-[#20312f] transition hover:bg-[#f5f1e7] lg:hidden"
             aria-label="Toggle navigation"
           >
             {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -125,7 +125,7 @@ export function Navbar() {
                   className={({ isActive }) =>
                     cn(
                       'rounded-2xl border px-4 py-3 text-sm font-medium transition-colors duration-200',
-                      isActive ? 'border-[#347c70] bg-[#347c70] text-white' : 'border-[#dfe5d9] bg-[#f5f1e7] text-slate-300 hover:bg-[#eef8f5]'
+                      isActive ? 'border-[#347c70] bg-[#347c70] text-white' : 'border-[#dfe5d9] bg-[#f5f1e7] text-[#526460] hover:bg-[#eef8f5]'
                     )
                   }
                 >
@@ -137,9 +137,9 @@ export function Navbar() {
             <div className="grid gap-2 sm:grid-cols-2">
               {isAuthenticated ? (
                 <>
-                  <div className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] px-4 py-3 text-sm text-slate-300">
+                  <div className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] px-4 py-3 text-sm text-[#526460]">
                     <div className="flex items-center gap-2">
-                      <UserCircle2 className="h-4 w-4 text-leaf-200" />
+                      <UserCircle2 className="h-4 w-4 text-[#347c70]" />
                       <span>{user?.name || user?.email || 'Account'}</span>
                     </div>
                   </div>
@@ -160,14 +160,14 @@ export function Navbar() {
                   <NavLink
                     to="/login"
                     onClick={() => setIsOpen(false)}
-                    className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] px-4 py-3 text-sm font-medium text-slate-300 transition hover:bg-[#eef8f5]"
+                    className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] px-4 py-3 text-sm font-medium text-[#526460] transition hover:bg-[#eef8f5]"
                   >
                     Login
                   </NavLink>
                   <NavLink
                     to="/register"
                     onClick={() => setIsOpen(false)}
-                    className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] px-4 py-3 text-sm font-medium text-slate-300 transition hover:bg-[#eef8f5]"
+                    className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] px-4 py-3 text-sm font-medium text-[#526460] transition hover:bg-[#eef8f5]"
                   >
                     Register
                   </NavLink>

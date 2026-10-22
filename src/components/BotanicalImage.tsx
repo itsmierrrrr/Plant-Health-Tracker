@@ -72,7 +72,7 @@ export function BotanicalImage({ alt, aspectClassName = 'aspect-[3/1]', classNam
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#173a36]/65 via-transparent to-transparent" />
         {label ? (
-          <span className="absolute bottom-4 left-4 rounded-full border border-white/30 bg-[#fffdf7]/90 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-[#347c70] backdrop-blur-sm">
+          <span className="absolute bottom-4 left-4 rounded-full border border-[#dfe5d9] bg-[#fffdf7]/90 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-[#347c70] backdrop-blur-sm">
             {label}
           </span>
         ) : null}
