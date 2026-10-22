@@ -1,5 +1,6 @@
 import { cn } from '../utils/cn';
 import { ArrowUpFromLine, ImagePlus, LoaderCircle, Sparkles, CheckCircle2, X } from 'lucide-react';
+import { ResponsiveImage } from './ResponsiveImage';
 
 type UploadZoneProps = {
   className?: string;
@@ -89,7 +90,7 @@ export function UploadZone({
             </div>
             <div className="mt-3 overflow-hidden rounded-2xl border border-dashed border-[#b5ddd3] bg-[radial-gradient(circle_at_top,rgba(52,124,112,0.12),transparent_55%),linear-gradient(180deg,rgba(255,255,255,0.7),rgba(238,248,245,0.8))]">
               {hasPreview ? (
-                <img src={previewImageUrl ?? ''} alt="Selected plant preview" className="aspect-[4/3] h-full w-full object-cover" />
+                <ResponsiveImage src={previewImageUrl ?? '/plant.png'} alt="Selected plant preview" sizes="(min-width: 1024px) 40vw, 100vw" className="aspect-[4/3]" />
               ) : (
                 <div className="flex aspect-[4/3] items-center justify-center px-6 text-center text-sm leading-6 text-[#708079]">
                   Your uploaded image will appear here with a crisp, app-style preview frame.
