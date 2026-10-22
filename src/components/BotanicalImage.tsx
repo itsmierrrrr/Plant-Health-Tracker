@@ -1,5 +1,6 @@
 import { cn } from '../utils/cn';
 import { useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
+import { ResponsiveImage } from './ResponsiveImage';
 
 type BotanicalImageProps = {
   alt: string;
@@ -60,15 +61,12 @@ export function BotanicalImage({ alt, aspectClassName = 'aspect-[3/1]', classNam
       style={{ transform: `translate3d(${dragOffset.x}px, ${dragOffset.y}px, 0)` }}
     >
       <div className={cn('relative w-full overflow-hidden rounded-[1.5rem]', fill ? 'h-full' : aspectClassName)}>
-        <img
+        <ResponsiveImage
           src={src}
           alt={alt}
-          draggable={false}
-          onError={(event) => {
-            event.currentTarget.onerror = null;
-            event.currentTarget.src = '/plant.png';
-          }}
-          className={cn('h-full w-full object-cover object-center transition duration-700 ease-out group-hover:scale-105', imageClassName)}
+          eager
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          className={cn('object-center transition duration-700 ease-out group-hover:scale-105', imageClassName)}
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#173a36]/65 via-transparent to-transparent" />
         {label ? (
