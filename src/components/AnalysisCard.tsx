@@ -1,6 +1,7 @@
 import { cn } from '../utils/cn';
 import { BadgeCheck, CalendarDays, Droplets, Sprout } from 'lucide-react';
 import type { AnalysisItem } from '../data/mockData';
+import { ResponsiveImage } from './ResponsiveImage';
 
 type AnalysisCardProps = {
   analysis: AnalysisItem;
@@ -11,8 +12,8 @@ export function AnalysisCard({ analysis, className }: AnalysisCardProps) {
   return (
     <article className={cn('group overflow-hidden rounded-3xl border border-[#dfe5d9] bg-[#fffdf7] shadow-soft transition duration-300 hover:-translate-y-1 hover:border-leaf-400/30', className)}>
       <div className="relative h-48 overflow-hidden">
-        <img src={analysis.image} alt={analysis.plantName} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/15 to-transparent" />
+        <ResponsiveImage src={analysis.image} alt={analysis.plantName} sizes="(min-width: 1024px) 33vw, 100vw" className="transition duration-500 group-hover:scale-105" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#173a36]/75 via-[#173a36]/10 to-transparent" />
         <span className="absolute left-4 top-4 rounded-full bg-[#fffdf7] px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#20312f]">
           {analysis.status}
         </span>
