@@ -21,6 +21,7 @@ import {
 import { ChangeEvent, DragEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BotanicalImage } from '../components/BotanicalImage';
+import { ResponsiveImage } from '../components/ResponsiveImage';
 
 type UploadStatus = 'idle' | 'uploading' | 'analyzing' | 'complete';
 
@@ -281,7 +282,7 @@ export function UploadPlantPage() {
         <DashboardCard title="Live preview" action={<span className="text-sm text-[#708079]">{asset ? status : 'No file selected'}</span>}>
           {asset ? (
             <div className="overflow-hidden rounded-[1.75rem] border border-[#dfe5d9] bg-[#20312f]">
-              <img src={asset.previewUrl} alt={asset.name} className="h-[22rem] w-full object-cover sm:h-[28rem]" />
+              <ResponsiveImage src={asset.previewUrl} alt={asset.name} sizes="(min-width: 1024px) 50vw, 100vw" className="h-[22rem] sm:h-[28rem]" />
               <div className="grid gap-3 border-t border-[#dfe5d9] bg-[#f5f1e7] p-5 sm:grid-cols-3">
                 <div>
                   <p className="text-xs uppercase tracking-[0.22em] text-[#8a9890]">File</p>
