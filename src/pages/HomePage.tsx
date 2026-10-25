@@ -2,6 +2,7 @@ import { FeatureCard } from '../components/FeatureCard';
 import { BotanicalImage } from '../components/BotanicalImage';
 import { PageContainer } from '../components/PageContainer';
 import { StatisticCard } from '../components/StatisticCard';
+import { ResponsiveImage } from '../components/ResponsiveImage';
 import { featuredPlantCards, features, statistics } from '../data/mockData';
 import { ArrowRight, PlayCircle, Sparkles, SunMedium } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -51,14 +52,12 @@ export function HomePage() {
             <div className="absolute -inset-8 rounded-[3rem] bg-hero-glow blur-2xl" />
             <div className="relative overflow-hidden rounded-[2.5rem] border border-[#dfe5d9] bg-[#fffdf7] p-3 shadow-soft">
               <div className="relative h-[28rem] overflow-hidden rounded-[2rem] sm:h-[34rem]">
-                <img
+                <ResponsiveImage
                   src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1200&q=90"
                   alt="Lush green leaves glowing in soft natural light"
-                  onError={(event) => {
-                    event.currentTarget.onerror = null;
-                    event.currentTarget.src = '/plant.png';
-                  }}
-                  className="h-full w-full object-cover transition duration-700 hover:scale-105"
+                  eager
+                  sizes="(min-width: 1024px) 45vw, 100vw"
+                  className="transition duration-700 hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#173a36]/80 via-transparent to-transparent" />
                 <div className="float-gently absolute right-5 top-5 rounded-full bg-[#fffdf7]/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#347c70] shadow-lg">
