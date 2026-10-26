@@ -9,6 +9,7 @@ import { BadgeCheck, CalendarDays, Droplets, Filter, Image as ImageIcon, Search,
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BotanicalImage } from '../components/BotanicalImage';
+import { ResponsiveImage } from '../components/ResponsiveImage';
 
 function getStatusLabel(healthScore: number) {
   if (healthScore >= 85) {
@@ -28,7 +29,7 @@ function getStatusTone(healthScore: number) {
   }
 
   if (healthScore >= 65) {
-    return 'text-brand-200 bg-[#eef8f5]';
+    return 'text-[#28685e] bg-[#eef8f5]';
   }
 
   return 'text-amber-200 bg-amber-400/15';
@@ -244,16 +245,8 @@ export function HistoryPage() {
                   )}
                 >
                   <div className="relative h-48 shrink-0 overflow-hidden">
-                    <img
-                      src={analysis.imageUrl}
-                      alt={analysis.commonName}
-                      onError={(event) => {
-                        event.currentTarget.onerror = null;
-                        event.currentTarget.src = '/plant.png';
-                      }}
-                      className="h-full w-full object-cover transition duration-500 hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/15 to-transparent" />
+                    <ResponsiveImage src={analysis.imageUrl} alt={analysis.commonName} sizes="(min-width: 1280px) 30vw, 100vw" className="transition duration-500 hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#173a36]/75 via-[#173a36]/10 to-transparent" />
                     <span className={cn('absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em]', getStatusTone(analysis.healthScore))}>
                       {getStatusLabel(analysis.healthScore)}
                     </span>
@@ -296,15 +289,7 @@ export function HistoryPage() {
             {selectedAnalysis ? (
               <div className="space-y-5">
                 <div className="overflow-hidden rounded-3xl border border-[#dfe5d9] bg-[#20312f]">
-                  <img
-                    src={selectedAnalysis.imageUrl}
-                    alt={selectedAnalysis.commonName}
-                    onError={(event) => {
-                      event.currentTarget.onerror = null;
-                      event.currentTarget.src = '/plant.png';
-                    }}
-                    className="h-64 w-full object-cover"
-                  />
+                  <ResponsiveImage src={selectedAnalysis.imageUrl} alt={selectedAnalysis.commonName} sizes="(min-width: 1280px) 40vw, 100vw" />
                 </div>
 
                 <div className="space-y-3">
