@@ -22,6 +22,7 @@ import { Activity, BarChart3, BadgeCheck, CalendarDays, Droplets, Leaf, ShieldAl
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BotanicalImage } from '../components/BotanicalImage';
+import { ResponsiveImage } from '../components/ResponsiveImage';
 
 ChartJS.register(ArcElement, BarElement, CategoryScale, Filler, Legend, LineElement, LinearScale, PointElement, Tooltip);
 
@@ -439,15 +440,7 @@ export function DashboardPage() {
           {selectedAnalysis ? (
             <div className="space-y-5">
               <div className="overflow-hidden rounded-3xl border border-[#dfe5d9] bg-[#20312f]">
-                <img
-                  src={selectedAnalysis.imageUrl}
-                  alt={selectedAnalysis.commonName}
-                  onError={(event) => {
-                    event.currentTarget.onerror = null;
-                    event.currentTarget.src = '/plant.png';
-                  }}
-                  className="h-64 w-full object-cover"
-                />
+                <ResponsiveImage src={selectedAnalysis.imageUrl} alt={selectedAnalysis.commonName} sizes="(min-width: 1280px) 40vw, 100vw" />
               </div>
 
               <div className="space-y-3">
@@ -545,7 +538,7 @@ export function DashboardPage() {
           <div className="grid gap-4 md:grid-cols-3">
             {[
               { label: 'Healthy', value: analyses.filter((analysis) => analysis.healthScore >= 85).length, tone: 'text-[#347c70]' },
-              { label: 'Monitor', value: analyses.filter((analysis) => analysis.healthScore >= 65 && analysis.healthScore < 85).length, tone: 'text-brand-200' },
+              { label: 'Monitor', value: analyses.filter((analysis) => analysis.healthScore >= 65 && analysis.healthScore < 85).length, tone: 'text-[#28685e]' },
               { label: 'Attention', value: analyses.filter((analysis) => analysis.healthScore < 65).length, tone: 'text-amber-200' },
             ].map((item) => (
               <div key={item.label} className="rounded-2xl border border-[#dfe5d9] bg-[#f5f1e7] p-5">
