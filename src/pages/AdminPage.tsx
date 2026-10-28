@@ -7,6 +7,7 @@ import { cn } from '../utils/cn';
 import { ImageIcon, Shield, Sparkles, Users } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { BotanicalImage } from '../components/BotanicalImage';
+import { ResponsiveImage } from '../components/ResponsiveImage';
 
 function getHealthLabel(healthScore: number) {
   if (healthScore >= 85) {
@@ -165,7 +166,7 @@ export function AdminPage() {
                 <article key={analysis.id} className="overflow-hidden rounded-3xl border border-[#dfe5d9] bg-[#f5f1e7]">
                   <div className="grid gap-4 p-4 md:grid-cols-[160px_1fr]">
                     <div className="h-40 overflow-hidden rounded-2xl bg-[#20312f]">
-                      <img src={analysis.imageUrl} alt={analysis.commonName} className="h-full w-full object-cover" />
+                      <ResponsiveImage src={analysis.imageUrl} alt={analysis.commonName} sizes="(min-width: 1024px) 25vw, 100vw" />
                     </div>
 
                     <div className="space-y-3">
@@ -174,7 +175,7 @@ export function AdminPage() {
                           <p className="text-lg font-semibold text-[#20312f]">{analysis.commonName}</p>
                           <p className="text-sm text-[#708079]">{analysis.scientificName}</p>
                         </div>
-                        <span className={cn('rounded-full px-3 py-1 text-xs font-semibold', analysis.healthScore >= 85 ? 'bg-[#e8f3ef] text-[#347c70]' : analysis.healthScore >= 65 ? 'bg-[#eef8f5] text-brand-200' : 'bg-amber-400/15 text-amber-200')}>
+                        <span className={cn('rounded-full px-3 py-1 text-xs font-semibold', analysis.healthScore >= 85 ? 'bg-[#e8f3ef] text-[#347c70]' : analysis.healthScore >= 65 ? 'bg-[#eef8f5] text-[#28685e]' : 'bg-[#fff3d4] text-[#7a5200]')}>
                           {getHealthLabel(analysis.healthScore)}
                         </span>
                       </div>
