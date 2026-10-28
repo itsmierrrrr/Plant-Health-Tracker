@@ -8,6 +8,7 @@ import { ArrowLeft, BadgeCheck, CalendarDays, Droplets, Leaf, ShieldAlert, Spark
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { BotanicalImage } from '../components/BotanicalImage';
+import { ResponsiveImage } from '../components/ResponsiveImage';
 
 type ResultsLocationState = {
   analysis?: PlantAnalysisRecord;
@@ -195,8 +196,8 @@ export function AnalysisResultsPage() {
       <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
         <DashboardCard title="Plant image" className="overflow-hidden p-0">
           <div className="relative aspect-[4/3]">
-            <img src={analysis.imageUrl} alt={analysis.commonName} className="h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+            <ResponsiveImage src={analysis.imageUrl} alt={analysis.commonName} sizes="(min-width: 1280px) 50vw, 100vw" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#173a36]/75 via-[#173a36]/10 to-transparent" />
             <div className="absolute bottom-4 left-4 rounded-full bg-[#fffdf7] px-4 py-2 text-sm font-medium text-[#20312f]">
               {analysis.commonName}
             </div>
