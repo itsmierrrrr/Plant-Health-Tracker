@@ -22,7 +22,7 @@ export function HomePage() {
                 A little more life in every leaf.
               </h1>
               <p className="max-w-2xl text-lg leading-8 text-[#526460] sm:text-xl">
-                See what your plants are telling you. Plant Pulse turns one simple photo into a calmer, clearer care routine.
+                See what your plants are telling you. Plant Pulse turns one simple image into a calmer, clearer care routine.
               </p>
             </div>
             <div className="flex flex-wrap gap-4">
