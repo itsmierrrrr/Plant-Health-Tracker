@@ -22,8 +22,8 @@ export function ResponsiveImage({
   const [resolvedSrc, setResolvedSrc] = useState(src);
 
   return (
-    <div className="relative h-full w-full overflow-hidden bg-[#eef8f5]">
-      {isLoading ? <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-[#eef8f5] via-[#f5f1e7] to-[#e8f3ef]" aria-hidden="true" /> : null}
+    <div className="relative h-full w-full overflow-hidden bg-[#E8F0D8]">
+      {isLoading ? <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-[#E8F0D8] via-[#D8E3C9] to-[#E8F0D8]" aria-hidden="true" /> : null}
       <img
         src={resolvedSrc}
         alt={alt}
